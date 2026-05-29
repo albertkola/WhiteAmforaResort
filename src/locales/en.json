@@ -200,6 +200,70 @@
       "nearby": "Coastal town above the water near Shëngjin"
     }
   },
+  "contact": {
+    "meta": {
+      "title": "Contact — White Amfora, Shëngjin",
+      "description": "Get in touch with White Amfora: WhatsApp, phone, email, and an inquiry form for your dates on the Rana e Hedhun beach in Shëngjin, Albania."
+    },
+    "hero": {
+      "tag": "Contact",
+      "title": "Let's plan your stay",
+      "subtitle": "Send your dates and we'll reply with availability and a price."
+    },
+    "details": {
+      "title": "Reach us",
+      "phone": "Call",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram",
+      "booking": "Booking.com",
+      "address_title": "Find us",
+      "directions": "Get directions",
+      "stay_title": "Good to know",
+      "checkin": "Check-in",
+      "checkout": "Check-out",
+      "beach": "To the beach",
+      "airport": "To Tirana airport"
+    },
+    "form": {
+      "title": "Send an inquiry",
+      "intro": "No account needed. Fill in your details, then choose how to send them. We reply fastest on WhatsApp.",
+      "checkin": "Check-in date",
+      "checkout": "Check-out date",
+      "adults": "Adults",
+      "children": "Children",
+      "room": "Apartment (optional)",
+      "room_any": "Not sure yet",
+      "name": "Your name",
+      "name_ph": "First and last name",
+      "message": "Message (optional)",
+      "message_ph": "Anything you'd like us to know?",
+      "send_title": "How would you like to send it?",
+      "whatsapp": "Send via WhatsApp",
+      "email": "Send via email",
+      "booking": "Book on Booking.com",
+      "email_subject": "Stay inquiry — White Amfora",
+      "errors": {
+        "checkin": "Please choose a check-in date.",
+        "checkout": "Please choose a check-out date.",
+        "order": "Check-out must be after check-in.",
+        "guests": "There must be at least one guest.",
+        "name": "Please add your name."
+      },
+      "msg": {
+        "greeting": "Hello White Amfora! I'd like to inquire about a stay.",
+        "checkin": "Check-in",
+        "checkout": "Check-out",
+        "guests": "Guests",
+        "adults_one": "adult",
+        "adults_other": "adults",
+        "children_one": "child",
+        "children_other": "children",
+        "room": "Apartment",
+        "name": "Name"
+      }
+    }
+  },
   "footer": {
     "tagline": "Sea-view, self-catering apartments on the Rana e Hedhun beach in Shëngjin, Albania.",
     "explore": "Explore",

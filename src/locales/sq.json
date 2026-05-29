@@ -200,6 +200,70 @@
       "nearby": "Qytet bregdetar mbi ujë pranë Shëngjinit"
     }
   },
+  "contact": {
+    "meta": {
+      "title": "Kontakt — White Amfora, Shëngjin",
+      "description": "Na kontaktoni te White Amfora: WhatsApp, telefon, email dhe një formular pyetjeje për datat tuaja në plazhin Rana e Hedhun, Shëngjin, Shqipëri."
+    },
+    "hero": {
+      "tag": "Kontakt",
+      "title": "Le të planifikojmë qëndrimin tuaj",
+      "subtitle": "Na dërgoni datat dhe do t'ju kthehemi me disponueshmërinë dhe çmimin."
+    },
+    "details": {
+      "title": "Na kontaktoni",
+      "phone": "Telefono",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram",
+      "booking": "Booking.com",
+      "address_title": "Na gjeni",
+      "directions": "Merr drejtimet",
+      "stay_title": "Mirë të dihet",
+      "checkin": "Hyrja",
+      "checkout": "Dalja",
+      "beach": "Deri te plazhi",
+      "airport": "Deri te aeroporti i Tiranës"
+    },
+    "form": {
+      "title": "Dërgoni një pyetje",
+      "intro": "Pa llogari. Plotësoni të dhënat dhe zgjidhni si t'i dërgoni. Përgjigjemi më shpejt në WhatsApp.",
+      "checkin": "Data e hyrjes",
+      "checkout": "Data e daljes",
+      "adults": "Të rritur",
+      "children": "Fëmijë",
+      "room": "Apartamenti (opsionale)",
+      "room_any": "Ende i pasigurt",
+      "name": "Emri juaj",
+      "name_ph": "Emri dhe mbiemri",
+      "message": "Mesazh (opsionale)",
+      "message_ph": "Diçka që dëshironi të dimë?",
+      "send_title": "Si dëshironi ta dërgoni?",
+      "whatsapp": "Dërgo me WhatsApp",
+      "email": "Dërgo me email",
+      "booking": "Rezervo në Booking.com",
+      "email_subject": "Pyetje për qëndrim — White Amfora",
+      "errors": {
+        "checkin": "Ju lutemi zgjidhni një datë hyrjeje.",
+        "checkout": "Ju lutemi zgjidhni një datë daljeje.",
+        "order": "Dalja duhet të jetë pas hyrjes.",
+        "guests": "Duhet të jetë të paktën një mysafir.",
+        "name": "Ju lutemi shtoni emrin tuaj."
+      },
+      "msg": {
+        "greeting": "Përshëndetje White Amfora! Dua të pyes për një qëndrim.",
+        "checkin": "Hyrja",
+        "checkout": "Dalja",
+        "guests": "Mysafirë",
+        "adults_one": "i rritur",
+        "adults_other": "të rritur",
+        "children_one": "fëmijë",
+        "children_other": "fëmijë",
+        "room": "Apartamenti",
+        "name": "Emri"
+      }
+    }
+  },
   "footer": {
     "tagline": "Apartamente me pamje nga deti dhe me kuzhinë, në plazhin Rana e Hedhun, Shëngjin, Shqipëri.",
     "explore": "Eksploro",

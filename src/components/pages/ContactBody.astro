@@ -1,0 +1,122 @@
+---
+import { type Locale, useTranslations } from '../../i18n';
+import { site, whatsappLink } from '../../config/site';
+import PageHero from '../ui/PageHero.astro';
+import Section from '../ui/Section.astro';
+import Picture from '../ui/Picture.astro';
+import Button from '../ui/Button.astro';
+import SocialIcon from '../layout/SocialIcon.astro';
+import InquiryForm from './InquiryForm.astro';
+import heroImg from '../../assets/photos/town.jpg';
+import mapFallback from '../../assets/photos/bay-overlook.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const d = (k: string) => t('contact.details.' + k);
+const addr = site.address;
+const hasEmbed = Boolean(site.mapEmbedUrl);
+
+const methods = [
+  { icon: 'phone', label: d('phone'), value: site.phoneDisplay, href: `tel:${site.phone}`, aria: t('a11y.call') },
+  { icon: 'email', label: d('email'), value: site.email, href: `mailto:${site.email}`, aria: t('a11y.email') },
+  { icon: 'whatsapp', label: d('whatsapp'), value: '+' + site.whatsappNumber, href: whatsappLink(site.whatsappGreeting[locale]), aria: t('a11y.whatsapp'), ext: true },
+  { icon: 'instagram', label: d('instagram'), value: '@whiteamforahotel', href: site.instagramUrl, aria: t('a11y.instagram'), ext: true },
+  { icon: 'booking', label: d('booking'), value: 'Amfora apartments', href: site.bookingComUrl, aria: t('a11y.booking'), ext: true },
+].filter((m) => m.href && !m.href.endsWith('//') && m.href !== 'mailto:' && m.href !== 'tel:');
+---
+
+<PageHero
+  tag={t('contact.hero.tag')}
+  title={t('contact.hero.title')}
+  subtitle={t('contact.hero.subtitle')}
+  image={heroImg}
+  alt={t('home.alt.gallery4')}
+/>
+
+<Section bg="canvas" width="wide">
+  <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+    <!-- Inquiry form (priority) -->
+    <div class="lg:col-span-7" data-reveal>
+      <InquiryForm locale={locale} />
+    </div>
+
+    <!-- Contact details -->
+    <aside class="lg:col-span-5" data-reveal>
+      <h2 class="font-display text-title font-light text-ink">{d('title')}</h2>
+      <ul class="mt-5 space-y-3">
+        {methods.map((m) => (
+          <li>
+            <a
+              href={m.href}
+              aria-label={m.aria}
+              target={m.ext ? '_blank' : undefined}
+              rel={m.ext ? 'noopener noreferrer' : undefined}
+              class="group flex items-center gap-4 rounded-2xl border border-ink/10 bg-canvas px-4 py-3.5 transition hover:border-clay/40 hover:bg-sand/30"
+            >
+              <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sand text-ink transition group-hover:bg-clay group-hover:text-canvas">
+                {m.icon === 'phone' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+                ) : m.icon === 'email' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                ) : (
+                  <SocialIcon name={m.icon as any} class="h-[18px] w-[18px]" />
+                )}
+              </span>
+              <span class="min-w-0">
+                <span class="block text-sm text-ink-soft">{m.label}</span>
+                <span class="block truncate font-medium text-ink">{m.value}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Find us -->
+      <h3 class="mt-8 text-eyebrow font-semibold uppercase tracking-[.16em] text-clay">{d('address_title')}</h3>
+      <address class="mt-3 not-italic text-ink-soft">
+        {addr.street}, {addr.city}, {addr.region} {addr.postalCode}, {addr.country}
+      </address>
+      <div class="mt-4">
+        <Button variant="outline" size="sm" href={site.mapLink} target="_blank" rel="noopener noreferrer">
+          <SocialIcon name="map" class="h-4 w-4" /> {d('directions')}
+        </Button>
+      </div>
+
+      <!-- Good to know -->
+      <h3 class="mt-8 text-eyebrow font-semibold uppercase tracking-[.16em] text-clay">{d('stay_title')}</h3>
+      <dl class="mt-3 grid grid-cols-2 gap-x-6 gap-y-4">
+        <div><dt class="text-sm text-ink-soft">{d('checkin')}</dt><dd class="font-display text-xl font-light text-ink">{site.checkIn}</dd></div>
+        <div><dt class="text-sm text-ink-soft">{d('checkout')}</dt><dd class="font-display text-xl font-light text-ink">{site.checkOut}</dd></div>
+        <div><dt class="text-sm text-ink-soft">{d('beach')}</dt><dd class="font-display text-xl font-light text-clay">≈ {site.distances.beachMeters} m</dd></div>
+        <div><dt class="text-sm text-ink-soft">{d('airport')}</dt><dd class="font-display text-xl font-light text-clay">≈ {site.distances.airportKm} km</dd></div>
+      </dl>
+    </aside>
+  </div>
+</Section>
+
+<!-- Map -->
+<Section bg="deep" width="wide" padding="sm">
+  <div class="overflow-hidden rounded-[1.75rem] shadow-xl shadow-ink/10" data-reveal>
+    {hasEmbed ? (
+      <iframe
+        src={site.mapEmbedUrl}
+        title={t('a11y.map')}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="block h-[60svh] w-full border-0"
+      ></iframe>
+    ) : (
+      <a href={site.mapLink} target="_blank" rel="noopener noreferrer" class="group relative block" aria-label={t('a11y.map')}>
+        <Picture src={mapFallback} alt={t('home.alt.location')} widths={[768, 1280, 1920]} sizes="100vw" aspect="21/9" class="w-full" />
+        <span class="absolute inset-0 flex items-center justify-center bg-ink/30 transition group-hover:bg-ink/40">
+          <span class="inline-flex items-center gap-2 rounded-full bg-canvas px-6 py-3 font-medium text-ink shadow-lg">
+            <SocialIcon name="map" class="h-5 w-5 text-clay" /> {d('directions')}
+          </span>
+        </span>
+      </a>
+    )}
+  </div>
+</Section>

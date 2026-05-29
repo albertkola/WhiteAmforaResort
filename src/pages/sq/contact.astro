@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactBody from '../../components/pages/ContactBody.astro';
+import { useTranslations } from '../../i18n';
+const locale = 'sq' as const;
+const t = useTranslations(locale);
+---
+<BaseLayout title={t('contact.meta.title')} description={t('contact.meta.description')} locale={locale} path="/contact" overHero>
+  <ContactBody locale={locale} />
+</BaseLayout>

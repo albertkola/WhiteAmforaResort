@@ -1,0 +1,206 @@
+---
+import { type Locale, useTranslations } from '../../i18n';
+import { site } from '../../config/site';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const f = (k: string) => t('contact.form.' + k);
+const roomName = t('rooms.unit.name');
+
+// Config + localized strings passed to the client script.
+const cfg = {
+  locale,
+  wa: site.whatsappNumber,
+  email: site.email,
+  booking: site.bookingComUrl,
+  subject: f('email_subject'),
+  L: {
+    greeting: f('msg.greeting'),
+    checkin: f('msg.checkin'),
+    checkout: f('msg.checkout'),
+    guests: f('msg.guests'),
+    adults_one: f('msg.adults_one'),
+    adults_other: f('msg.adults_other'),
+    children_one: f('msg.children_one'),
+    children_other: f('msg.children_other'),
+    room: f('msg.room'),
+    name: f('msg.name'),
+  },
+  E: {
+    checkin: f('errors.checkin'),
+    checkout: f('errors.checkout'),
+    order: f('errors.order'),
+    guests: f('errors.guests'),
+    name: f('errors.name'),
+  },
+};
+
+const inputCls =
+  'mt-1.5 w-full rounded-xl border border-ink/15 bg-canvas px-4 py-3 text-ink shadow-sm transition placeholder:text-ink/40 focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/25 aria-[invalid=true]:border-clay aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-clay/25';
+const labelCls = 'block text-sm font-medium text-ink';
+const errCls = 'mt-1 block min-h-[1.25rem] text-sm text-clay';
+---
+
+<form id="inquiry-form" novalidate class="rounded-3xl bg-canvas p-6 ring-1 ring-ink/10 shadow-lg shadow-ink/5 md:p-8">
+  <h2 class="font-display text-title font-light text-ink">{f('title')}</h2>
+  <p class="mt-2 text-sm/relaxed text-ink-soft">{f('intro')}</p>
+
+  <div class="mt-7 grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class={labelCls} for="inq-checkin">{f('checkin')}</label>
+      <input class={inputCls} type="date" id="inq-checkin" name="checkin" required aria-describedby="err-checkin" />
+      <span class={errCls} id="err-checkin" aria-live="polite"></span>
+    </div>
+    <div>
+      <label class={labelCls} for="inq-checkout">{f('checkout')}</label>
+      <input class={inputCls} type="date" id="inq-checkout" name="checkout" required aria-describedby="err-checkout" />
+      <span class={errCls} id="err-checkout" aria-live="polite"></span>
+    </div>
+
+    <div>
+      <label class={labelCls} for="inq-adults">{f('adults')}</label>
+      <input class={inputCls} type="number" id="inq-adults" name="adults" min="1" max="20" value="2" inputmode="numeric" aria-describedby="err-guests" />
+    </div>
+    <div>
+      <label class={labelCls} for="inq-children">{f('children')}</label>
+      <input class={inputCls} type="number" id="inq-children" name="children" min="0" max="20" value="0" inputmode="numeric" />
+    </div>
+    <span class={`${errCls} sm:col-span-2 -mt-2`} id="err-guests" aria-live="polite"></span>
+
+    <div class="sm:col-span-2">
+      <label class={labelCls} for="inq-room">{f('room')}</label>
+      <select class={inputCls} id="inq-room" name="room">
+        <option value="">{f('room_any')}</option>
+        <option value={roomName}>{roomName}</option>
+      </select>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label class={labelCls} for="inq-name">{f('name')}</label>
+      <input class={inputCls} type="text" id="inq-name" name="name" autocomplete="name" placeholder={f('name_ph')} required aria-describedby="err-name" />
+      <span class={errCls} id="err-name" aria-live="polite"></span>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label class={labelCls} for="inq-message">{f('message')}</label>
+      <textarea class={`${inputCls} min-h-28 resize-y`} id="inq-message" name="message" rows="3" placeholder={f('message_ph')}></textarea>
+    </div>
+  </div>
+
+  <h3 class="mt-8 text-eyebrow font-semibold uppercase tracking-[.16em] text-clay">{f('send_title')}</h3>
+  <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+    <Button variant="primary" id="btn-wa" type="button" class="sm:flex-1">{f('whatsapp')}</Button>
+    <Button variant="outline" id="btn-email" type="button" class="sm:flex-1">{f('email')}</Button>
+    <Button variant="ghost" id="btn-booking" type="button">{f('booking')}</Button>
+  </div>
+</form>
+
+<script define:vars={{ cfg }}>
+  (function () {
+    const form = document.getElementById('inquiry-form');
+    if (!form) return;
+    const byId = (id) => document.getElementById(id);
+
+    const checkin = byId('inq-checkin');
+    const checkout = byId('inq-checkout');
+    const adults = byId('inq-adults');
+    const children = byId('inq-children');
+    const room = byId('inq-room');
+    const name = byId('inq-name');
+    const message = byId('inq-message');
+
+    // Prefill room type from ?room= (emitted by the Rooms page)
+    const params = new URLSearchParams(location.search);
+    const roomParam = params.get('room');
+    if (roomParam) {
+      const match = Array.from(room.options).find((o) => o.value === roomParam);
+      if (match) room.value = roomParam;
+    }
+
+    // Date floors: check-in today onward; check-out after check-in
+    const today = new Date().toISOString().slice(0, 10);
+    checkin.min = today;
+    const syncCheckoutMin = () => {
+      checkout.min = checkin.value || today;
+      if (checkout.value && checkin.value && checkout.value <= checkin.value) checkout.value = '';
+    };
+    checkin.addEventListener('change', syncCheckoutMin);
+
+    const setErr = (field, errId, msg) => {
+      if (field) field.setAttribute('aria-invalid', 'true');
+      const el = byId(errId);
+      if (el) el.textContent = msg;
+    };
+    const clearErrs = () => {
+      [checkin, checkout, adults, name].forEach((el) => el && el.removeAttribute('aria-invalid'));
+      ['err-checkin', 'err-checkout', 'err-guests', 'err-name'].forEach((id) => {
+        const el = byId(id);
+        if (el) el.textContent = '';
+      });
+    };
+
+    const fmtDate = (v) => {
+      if (!v) return '';
+      try {
+        return new Intl.DateTimeFormat(cfg.locale === 'sq' ? 'sq' : 'en-GB', {
+          day: 'numeric', month: 'long', year: 'numeric',
+        }).format(new Date(v + 'T00:00:00'));
+      } catch (e) {
+        return v;
+      }
+    };
+
+    const validate = () => {
+      clearErrs();
+      const errors = [];
+      if (!checkin.value) { setErr(checkin, 'err-checkin', cfg.E.checkin); errors.push(checkin); }
+      if (!checkout.value) { setErr(checkout, 'err-checkout', cfg.E.checkout); errors.push(checkout); }
+      if (checkin.value && checkout.value && checkout.value <= checkin.value) {
+        setErr(checkout, 'err-checkout', cfg.E.order); errors.push(checkout);
+      }
+      const a = parseInt(adults.value, 10);
+      if (!(a >= 1)) { setErr(adults, 'err-guests', cfg.E.guests); errors.push(adults); }
+      if (!name.value.trim()) { setErr(name, 'err-name', cfg.E.name); errors.push(name); }
+      if (errors.length) { errors[0].focus(); return false; }
+      return true;
+    };
+
+    const buildMessage = () => {
+      const L = cfg.L;
+      const a = parseInt(adults.value, 10) || 0;
+      const c = parseInt(children.value, 10) || 0;
+      const guestParts = [a + ' ' + (a === 1 ? L.adults_one : L.adults_other)];
+      if (c > 0) guestParts.push(c + ' ' + (c === 1 ? L.children_one : L.children_other));
+
+      const lines = [
+        L.greeting,
+        '',
+        L.checkin + ': ' + fmtDate(checkin.value),
+        L.checkout + ': ' + fmtDate(checkout.value),
+        L.guests + ': ' + guestParts.join(', '),
+      ];
+      if (room.value) lines.push(L.room + ': ' + room.value);
+      if (name.value.trim()) lines.push(L.name + ': ' + name.value.trim());
+      let text = lines.join('\n');
+      if (message.value.trim()) text += '\n\n' + message.value.trim();
+      return text;
+    };
+
+    byId('btn-wa').addEventListener('click', () => {
+      if (!validate()) return;
+      window.open('https://wa.me/' + cfg.wa + '?text=' + encodeURIComponent(buildMessage()), '_blank', 'noopener');
+    });
+    byId('btn-email').addEventListener('click', () => {
+      if (!validate()) return;
+      window.location.href =
+        'mailto:' + cfg.email + '?subject=' + encodeURIComponent(cfg.subject) + '&body=' + encodeURIComponent(buildMessage());
+    });
+    byId('btn-booking').addEventListener('click', () => {
+      window.open(cfg.booking, '_blank', 'noopener');
+    });
+  })();
+</script>

@@ -6,8 +6,8 @@
 > built, and what comes next. If you are an agent starting fresh: **read this entire
 > file first**, then read `white-amfora-master-prompt.md` for the full increment specs.
 
-**Last updated:** 2026-05-29 — end of Increment 4
-**Current phase:** Increment 4 complete → awaiting Increment 5 (Contact page + inquiry flow)
+**Last updated:** 2026-05-29 — end of Increment 5
+**Current phase:** Increment 5 complete → awaiting Increment 6 (i18n/SEO/perf/a11y polish)
 
 > **File location note:** the markdown docs (this file, `README.md`,
 > `white-amfora-master-prompt.md`) were moved by the client into the **`md files/`**
@@ -99,7 +99,7 @@ prefilled message and offers: Send via WhatsApp / Send via Email / Book on Booki
 | 2 | Design system & shared components (header/nav, footer, primitives, WhatsApp bubble, motion) | ✅ **Done** |
 | 3 | Homepage (both languages) | ✅ **Done** |
 | 4 | Inner pages (Rooms, Services, Gallery+lightbox, About, optional Offers) | ✅ **Done** (Offers not built — pending client OK) |
-| 5 | Contact page + inquiry flow (WhatsApp/email/Booking deep links) | ⬜ Not started |
+| 5 | Contact page + inquiry flow (WhatsApp/email/Booking deep links) | ✅ **Done** |
 | 6 | i18n completion, SEO, performance & accessibility pass | ⬜ Not started |
 | 7 | Cloudflare Pages deployment + handoff docs | ⬜ Not started |
 
@@ -239,16 +239,36 @@ instead so the page renders from locale files per the standing rule; easy to ext
 `/impeccable audit` or polish pass:** low-contrast muted text — testimonials note `text-canvas/60`
 on teal and footer disclaimer `text-canvas/40` on ink (raise toward AA).
 
+**Increment 5 — Contact page + inquiry flow (added)**
+- **/contact** + **/sq/contact** (`ContactBody.astro`): PageHero, then a 2-col layout — the inquiry
+  form (priority, larger col) + a details aside (tap-to-call, mailto, WhatsApp, Instagram, Booking
+  with icons; address; directions → `mapLink`; check-in/out + beach/airport distances). Full-width
+  map below: Google embed iframe when `MAP_EMBED_URL` is set, else a `bay-overlook` image that links
+  to `mapLink`.
+- **Inquiry form** (`InquiryForm.astro`, client-side island, no backend): fields check-in/out dates,
+  adults/children, room (optional `<select>`), name, message. Validation: required dates, checkout >
+  checkin, adults ≥ 1, name; inline a11y errors (`aria-invalid` + live regions), focuses first
+  invalid. Date floors (checkin ≥ today, checkout > checkin). Composes a **natural, localized**
+  message and offers **Send via WhatsApp** (`wa.me/<num>?text=`), **Send via email** (`mailto:` subj+
+  body), **Book on Booking.com** (new tab). Localized strings + config passed to the script via
+  `define:vars`. **Consumes `?room=`** to preselect the apartment (matches per-locale unit name).
+  Verified: builder + encoded wa.me/mailto links produce correct output (node simulation).
+- Reachable from header CTA, hero, room cards (`?room=`), and final CTAs. Build green: **14 pages**;
+  detector clean on /contact.
+
 ## 9. Immediate next step
 
-**Increment 5 — Contact page + inquiry flow** (priority feature, fully client-side, no backend).
-Contact page: all methods from `site.ts` (tap-to-call, mailto, WhatsApp, Instagram, Booking, Google
-Map embed via `MAP_EMBED_URL`), address, directions, check-in/out. **Inquiry form:** check-in/out
-dates, guests (adults/children), room type (optional), name, message; validate (required dates,
-checkout > checkin, guests ≥ 1); NO server submit — compose a natural prefilled message and offer
-**Send via WhatsApp** / **Send via Email (mailto)** / **Book on Booking.com**, in the active language.
-**Consume the `?room=` query param** already emitted by the Rooms page to prefill room type. Make the
-form reachable from the header CTA and room cards. Test deep links on mobile + desktop.
+**Increment 6 — production polish** (i18n/SEO/perf/a11y): confirm every visible string is EN+SQ and
+the toggle/hreflang are correct; add per-page OG/Twitter cards, **JSON-LD Hotel schema**, `sitemap.xml`
+(add `@astrojs/sitemap`), `robots.txt`, canonicals (canonical already in BaseLayout), favicons + social
+share image; run Lighthouse (mobile + desktop), fix anything < 90; a11y pass (keyboard incl. lightbox
++ form, focus, contrast AA, reduced motion); re-check responsiveness 360/768/1024/1440/1920.
+**Fold in the open critique P2s:** raise low-contrast muted text — testimonials note `text-canvas/60`
+on teal + footer disclaimer `text-canvas/40` on ink.
+
+**Still TODO before launch:** real photos (replace interim Unsplash — only on client's word), and all
+`src/config/site.ts` placeholders (WhatsApp number, phone, email, address, `MAP_EMBED_URL`, socials).
+Offers page intentionally skipped (no confirmed deals).
 
 — Original Increment 4 spec (now done) — (bilingual, reuse the design system): Rooms/Accommodation
 (each apartment: images, description, amenities, capacity, "Inquire about this room" CTA that
