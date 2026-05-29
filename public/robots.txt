@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Internal design-system demo page — not for indexing
+Disallow: /components
+
+Sitemap: https://www.whiteamfora.com/sitemap-index.xml

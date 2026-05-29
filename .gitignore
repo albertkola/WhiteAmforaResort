@@ -21,6 +21,9 @@ pnpm-debug.log*
 
 # scratch / temp
 .img-candidates/
+.lh/
+preview.log
+.lighthouseci/
 
 # os / editor
 .DS_Store

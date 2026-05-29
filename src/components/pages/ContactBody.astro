@@ -51,7 +51,6 @@ const methods = [
           <li>
             <a
               href={m.href}
-              aria-label={m.aria}
               target={m.ext ? '_blank' : undefined}
               rel={m.ext ? 'noopener noreferrer' : undefined}
               class="group flex items-center gap-4 rounded-2xl border border-ink/10 bg-canvas px-4 py-3.5 transition hover:border-clay/40 hover:bg-sand/30"
@@ -109,7 +108,7 @@ const methods = [
         class="block h-[60svh] w-full border-0"
       ></iframe>
     ) : (
-      <a href={site.mapLink} target="_blank" rel="noopener noreferrer" class="group relative block" aria-label={t('a11y.map')}>
+      <a href={site.mapLink} target="_blank" rel="noopener noreferrer" class="group relative block">
         <Picture src={mapFallback} alt={t('home.alt.location')} widths={[768, 1280, 1920]} sizes="100vw" aspect="21/9" class="w-full" />
         <span class="absolute inset-0 flex items-center justify-center bg-ink/30 transition group-hover:bg-ink/40">
           <span class="inline-flex items-center gap-2 rounded-full bg-canvas px-6 py-3 font-medium text-ink shadow-lg">

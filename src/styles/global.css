@@ -21,12 +21,12 @@
   --color-canvas-deep: oklch(94% 0.018 82); /* slightly deeper section bg */
   --color-ink: oklch(27% 0.02 60);          /* deep warm charcoal text */
   --color-ink-soft: oklch(45% 0.02 60);     /* muted body text */
-  --color-clay: oklch(62% 0.12 42);         /* terracotta / amphora accent */
-  --color-clay-deep: oklch(54% 0.12 40);    /* hover/darker clay */
+  --color-clay: oklch(55% 0.14 42);         /* terracotta / amphora accent — AA on canvas (4.7:1) */
+  --color-clay-deep: oklch(48% 0.14 40);    /* hover/darker clay */
   --color-sea: oklch(45% 0.055 205);        /* Adriatic deep teal */
   --color-sea-deep: oklch(38% 0.05 205);
   --color-sand: oklch(86% 0.028 75);        /* warm taupe neutral */
-  --color-brass: oklch(72% 0.075 82);       /* muted gold detail */
+  --color-brass: oklch(86% 0.075 85);       /* champagne gold — AA on sea/ink, used only on dark */
 
   /* Fluid display type scale (clamped) */
   --text-eyebrow: 0.8125rem;

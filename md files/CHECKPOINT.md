@@ -6,8 +6,8 @@
 > built, and what comes next. If you are an agent starting fresh: **read this entire
 > file first**, then read `white-amfora-master-prompt.md` for the full increment specs.
 
-**Last updated:** 2026-05-29 — end of Increment 5
-**Current phase:** Increment 5 complete → awaiting Increment 6 (i18n/SEO/perf/a11y polish)
+**Last updated:** 2026-05-30 — end of Increment 6
+**Current phase:** Increment 6 complete → awaiting Increment 7 (Cloudflare Pages deploy + handoff)
 
 > **File location note:** the markdown docs (this file, `README.md`,
 > `white-amfora-master-prompt.md`) were moved by the client into the **`md files/`**
@@ -100,7 +100,7 @@ prefilled message and offers: Send via WhatsApp / Send via Email / Book on Booki
 | 3 | Homepage (both languages) | ✅ **Done** |
 | 4 | Inner pages (Rooms, Services, Gallery+lightbox, About, optional Offers) | ✅ **Done** (Offers not built — pending client OK) |
 | 5 | Contact page + inquiry flow (WhatsApp/email/Booking deep links) | ✅ **Done** |
-| 6 | i18n completion, SEO, performance & accessibility pass | ⬜ Not started |
+| 6 | i18n completion, SEO, performance & accessibility pass | ✅ **Done** |
 | 7 | Cloudflare Pages deployment + handoff docs | ⬜ Not started |
 
 Work **one increment at a time**; the client pastes each increment prompt. At the end
@@ -256,15 +256,53 @@ on teal and footer disclaimer `text-canvas/40` on ink (raise toward AA).
 - Reachable from header CTA, hero, room cards (`?room=`), and final CTAs. Build green: **14 pages**;
   detector clean on /contact.
 
+**Increment 6 — production polish (added)**
+- **i18n:** verified `en.json` and `sq.json` are full mirrors (every visible string translated). Language
+  toggle now **persists choice**: an inline `<head>` script (in `BaseLayout`) records the viewed locale in
+  `localStorage.waLocale` and, on the EN home only, redirects a returning `sq` visitor to `/sq/` before paint
+  (crawlers have no localStorage → always see EN; canonical/hreflang intact). The toggle (`[data-lang-switch]`,
+  Header) writes the chosen locale on click. hreflang en/sq/x-default already correct.
+- **SEO:** expanded `BaseLayout` `<head>` — full Open Graph (incl. `og:image`, dimensions, alt, `og:locale`
+  + alternate), Twitter `summary_large_image`, `apple-touch-icon`, `theme-color`, and **JSON-LD `Hotel`
+  schema** (name, description, url, image, telephone, email, PostalAddress, GeoCoordinates, hasMap, sameAs)
+  sourced from `site.ts`. Added **`@astrojs/sitemap`** (→ `sitemap-index.xml` + `sitemap-0.xml`, i18n-annotated,
+  excludes `/components`), **`public/robots.txt`** (sitemap ref + disallows `/components`), and a `noindex`
+  BaseLayout prop set on the demo page. canonical already present.
+- **Brand assets:** `scripts/gen-brand-assets.mjs` (sharp) generates `public/{apple-touch-icon,icon-192,
+  icon-512}.png` + `public/og-image.jpg` (1200×630 branded social card — amphora mark + serif wordmark +
+  tagline). Run via `npm run gen:assets`. (favicon.svg unchanged.)
+- **Accessibility:** fixed both Lighthouse a11y failures →
+  (1) **color-contrast:** darkened `--color-clay` `62%→55%` L (AA 4.7:1 with canvas, fixes the primary
+  button + every `text-clay`), lightened `--color-brass` `72%→86%` L (champagne; AA on sea/ink — only ever
+  used on dark), raised testimonials note `canvas/60→/80` (on teal) and footer disclaimer `canvas/40→/60`
+  (on ink). Exact values picked with `.lh/oklch.mjs` (OKLCH→sRGB WCAG calc).
+  (2) **label-content-name-mismatch (WCAG 2.5.3):** language toggle now uses a visible language name +
+  `sr-only` prefix (no conflicting aria-label); footer tel/mail/map and all contact-method links no longer
+  carry an aria-label that hid their visible text. Keyboard nav (nav/drawer/form/lightbox), focus-visible
+  ring, and `prefers-reduced-motion` were already in place and confirmed.
+- **Responsiveness:** spot-checked the homepage at 360/1440/1920 and contact at 1440 via headless Brave
+  (`--force-prefers-reduced-motion` so scroll-reveal content renders). All sections use `mx-auto max-w-7xl
+  px-6` (centered, gutters on ultrawide — no stretching); multi-column grids hold; hero is intentional
+  full-bleed. Mobile single-column stacks cleanly.
+- **Lighthouse (before → after), homepage:**
+  | | Perf | A11y | Best-Pr | SEO |
+  |---|---|---|---|---|
+  | Mobile before | 96 | 96 | 100 | 100 |
+  | Mobile after | **96** | **100** | **100** | **100** |
+  | Desktop before | 100 | 96 | 100 | 100 |
+  | Desktop after | **100** | **100** | **100** | **100** |
+  Also re-audited /contact, /gallery, /rooms (mobile): a11y/best-practices/SEO all **100**. (Perf is run as
+  median of 3 — a single noisy run can dip on a loaded dev box via TBT; clean runs hold 96 mobile / 100 desktop.)
+- **Tooling note:** `lighthouse` added as a devDependency. Audits driven against `npm run build && npm run
+  preview` (port 4399) using Brave/Chrome headless. `.lh/` (audit JSON + screenshots + oklch calc) is
+  gitignored scratch.
+
 ## 9. Immediate next step
 
-**Increment 6 — production polish** (i18n/SEO/perf/a11y): confirm every visible string is EN+SQ and
-the toggle/hreflang are correct; add per-page OG/Twitter cards, **JSON-LD Hotel schema**, `sitemap.xml`
-(add `@astrojs/sitemap`), `robots.txt`, canonicals (canonical already in BaseLayout), favicons + social
-share image; run Lighthouse (mobile + desktop), fix anything < 90; a11y pass (keyboard incl. lightbox
-+ form, focus, contrast AA, reduced motion); re-check responsiveness 360/768/1024/1440/1920.
-**Fold in the open critique P2s:** raise low-contrast muted text — testimonials note `text-canvas/60`
-on teal + footer disclaimer `text-canvas/40` on ink.
+**Increment 7 — Cloudflare Pages deployment + handoff docs.** Build command `npm run build`, output dir
+`dist`. Set the production domain (currently `astro.config.mjs` `site:` = `https://www.whiteamfora.com` —
+confirm with client) so canonical/sitemap/OG URLs are right. Move `README.md` back to repo root for GitHub
+render. Write handoff docs (how to fill `site.ts`, replace interim photos, redeploy).
 
 **Still TODO before launch:** real photos (replace interim Unsplash — only on client's word), and all
 `src/config/site.ts` placeholders (WhatsApp number, phone, email, address, `MAP_EMBED_URL`, socials).

@@ -71,10 +71,10 @@ const addr = site.address;
       <h2 class="text-eyebrow font-semibold uppercase tracking-[.18em] text-brass">{t('footer.contact')}</h2>
       <address class="mt-4 space-y-2.5 not-italic text-canvas/75">
         <p>{addr.street}, {addr.city}, {addr.region}, {addr.country}</p>
-        <p><a href={`tel:${site.phone}`} aria-label={t('a11y.call')} class="transition hover:text-canvas">{site.phoneDisplay}</a></p>
-        <p><a href={`mailto:${site.email}`} aria-label={t('a11y.email')} class="transition hover:text-canvas">{site.email}</a></p>
+        <p><a href={`tel:${site.phone}`} class="transition hover:text-canvas"><span class="sr-only">{t('a11y.call')}: </span>{site.phoneDisplay}</a></p>
+        <p><a href={`mailto:${site.email}`} class="transition hover:text-canvas"><span class="sr-only">{t('a11y.email')}: </span>{site.email}</a></p>
         <p>
-          <a href={site.mapLink} target="_blank" rel="noopener noreferrer" aria-label={t('a11y.map')} class="inline-flex items-center gap-1.5 transition hover:text-canvas">
+          <a href={site.mapLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 transition hover:text-canvas">
             <SocialIcon name="map" class="h-4 w-4" /> {t('footer.directions')}
           </a>
         </p>
@@ -85,7 +85,7 @@ const addr = site.address;
   <div class="border-t border-canvas/10">
     <div class="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-sm text-canvas/55 sm:flex-row sm:items-center sm:justify-between">
       <span>© {new Date().getFullYear()} {site.name}. {t('footer.rights')}</span>
-      <span class="text-canvas/40">{t('footer.disclaimer')}</span>
+      <span class="text-canvas/60">{t('footer.disclaimer')}</span>
     </div>
   </div>
 </footer>

@@ -14,13 +14,56 @@ interface Props {
   path?: string;
   /** Header floats transparently over a dark hero, then turns solid on scroll. */
   overHero?: boolean;
+  /** Social share image, relative to the site root. Defaults to the brand OG card. */
+  ogImage?: string;
+  /** Keep the page out of search indexes (e.g. internal demo pages). */
+  noindex?: boolean;
 }
 
-const { title, description, locale, path = '/', overHero = false } = Astro.props;
+const {
+  title,
+  description,
+  locale,
+  path = '/',
+  overHero = false,
+  ogImage = '/og-image.jpg',
+  noindex = false,
+} = Astro.props;
 
 const canonical = new URL(localizedPath(locale, path), Astro.site).toString();
 const enHref = new URL(localizedPath('en', path), Astro.site).toString();
 const sqHref = new URL(localizedPath('sq', path), Astro.site).toString();
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
+const ogLocale = locale === 'sq' ? 'sq_AL' : 'en_US';
+const ogLocaleAlt = locale === 'sq' ? 'en_US' : 'sq_AL';
+
+const addr = site.address;
+// JSON-LD describing the property (LodgingBusiness / Hotel). Single source of truth = site.ts.
+const hotelSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Hotel',
+  name: site.name,
+  description: site.tagline[locale],
+  url: new URL(localizedPath(locale, '/'), Astro.site).toString(),
+  image: ogImageUrl,
+  telephone: site.phone,
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: addr.street,
+    addressLocality: addr.city,
+    addressRegion: addr.region,
+    postalCode: addr.postalCode,
+    addressCountry: addr.countryCode,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.lat,
+    longitude: site.geo.lng,
+  },
+  hasMap: site.mapLink,
+  sameAs: [site.instagramUrl, site.bookingComUrl, site.facebookUrl, site.tiktokUrl].filter(Boolean),
+};
 ---
 
 <!doctype html>
@@ -28,9 +71,27 @@ const sqHref = new URL(localizedPath('sq', path), Astro.site).toString();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Language persistence: honor a previously chosen locale on the EN home,
+         otherwise remember the locale of the page being viewed. Runs before paint
+         so there is no visible flash; crawlers (no localStorage) always see EN. -->
+    <script is:inline define:vars={{ pageLocale: locale }}>
+      try {
+        const KEY = 'waLocale';
+        const saved = localStorage.getItem(KEY);
+        const onEnHome = location.pathname === '/' || location.pathname === '/index.html';
+        if (saved === 'sq' && onEnHome) {
+          location.replace('/sq/');
+        } else {
+          localStorage.setItem(KEY, pageLocale);
+        }
+      } catch (e) {}
+    </script>
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- hreflang alternates -->
     <link rel="alternate" hreflang="en" href={enHref} />
@@ -39,13 +100,31 @@ const sqHref = new URL(localizedPath('sq', path), Astro.site).toString();
 
     <!-- icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2e241d" />
 
-    <!-- Open Graph (expanded in the SEO increment) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — ${site.tagline[locale]}`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(hotelSchema)} is:inline />
+
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>

@@ -62,10 +62,10 @@ const initialState = overHero ? 'top' : 'solid';
       <a
         href={alt.href}
         hreflang={alt.locale}
-        aria-label={t('a11y.switchLang')}
+        data-lang-switch={alt.locale}
         class="rounded-full border border-current/30 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition hover:border-clay hover:text-clay"
       >
-        {t('lang.switch')}
+        <span class="sr-only">{t('a11y.switchLang')}: </span>{t('lang.switch')}
       </a>
 
       <a
@@ -127,8 +127,8 @@ const initialState = overHero ? 'top' : 'solid';
     </div>
 
     <div class="mt-auto flex items-center justify-between gap-3 border-t border-ink/10 px-6 py-5">
-      <a href={alt.href} hreflang={alt.locale} class="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold uppercase tracking-wider hover:border-clay hover:text-clay">
-        {t('lang.switch')} · {localeNames[alt.locale]}
+      <a href={alt.href} hreflang={alt.locale} data-lang-switch={alt.locale} class="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold uppercase tracking-wider hover:border-clay hover:text-clay">
+        <span class="sr-only">{t('a11y.switchLang')}: </span>{localeNames[alt.locale]}
       </a>
       <a href={localizedPath(locale, '/contact')} class="rounded-full bg-clay px-5 py-2.5 text-sm font-medium text-canvas hover:bg-clay-deep">
         {t('nav.book')}
@@ -144,6 +144,15 @@ const initialState = overHero ? 'top' : 'solid';
   const drawer = document.getElementById('mobile-nav');
   const backdrop = document.getElementById('mobile-backdrop');
   const panel = document.getElementById('mobile-panel');
+
+  // ---- Persist the chosen language when toggling ----
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((link) => {
+    link.addEventListener('click', () => {
+      try {
+        localStorage.setItem('waLocale', link.dataset.langSwitch || 'en');
+      } catch (e) {}
+    });
+  });
 
   // ---- Transparent-over-hero → solid-on-scroll ----
   if (header && header.dataset.overHero === 'true') {
