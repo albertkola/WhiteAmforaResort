@@ -7,9 +7,9 @@
  */
 
 export const site = {
-  /** Brand */
+  /** Brand — client chose the name alone, with the descriptor carried by the tagline. */
   name: 'White Amfora',
-  legalName: 'White Amfora Resort', // TODO: confirm with client (Resort vs Hotel vs Apartments)
+  legalName: 'White Amfora', // registered/legal name TODO: confirm exact legal entity with client
   tagline: {
     en: 'Sea-view apartments on the Rana e Hedhun beach, Shëngjin',
     sq: 'Apartamente me pamje nga deti në plazhin Rana e Hedhun, Shëngjin',

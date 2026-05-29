@@ -69,6 +69,11 @@ separate "Amfora Hotel & Spa, Durrës." Use only these verified sources:
 - **`frontend-design`** (ECC/Anthropic) — base design skill that impeccable builds on.
 - At the start of each increment, search the skill library and load anything relevant
   (image handling, SEO, a11y, etc.).
+- **impeccable project context (set up):** `PRODUCT.md` (register=**brand**, users, purpose,
+  personality, anti-references, design principles, a11y) and `DESIGN.md` (visual system
+  mirroring `src/styles/global.css`) live at the repo root. Every `/impeccable` command reads
+  them. Re-run `node ~/.claude/skills/impeccable/scripts/context.mjs` if needed. (Live mode
+  not configured — it needs the Playwright MCP bridge browser extension, which isn't installed.)
 
 ---
 
@@ -137,10 +142,17 @@ of each, report: (1) what was built, (2) how to preview, (3) decisions to confir
 SQ at `/sq/`. (Note: the increment said "empty locale files" — we seeded minimal real copy
 instead so the page renders from locale files per the standing rule; easy to extend.)
 
-**Design proposal AWAITING CLIENT SIGN-OFF** (implemented as the working default):
+**Design direction — CLIENT-APPROVED (2026-05-29):**
 - Palette (OKLCH, warm-tinted): canvas/limestone, ink, **clay/terracotta (amfora accent)**,
-  **sea/Adriatic teal**, sand, brass. Defined in `src/styles/global.css`.
-- Type: **Fraunces** (display serif) + **Mulish** (body sans). Swappable in one file.
+  **sea/Adriatic teal**, sand, brass. Defined in `src/styles/global.css`. ✅ approved.
+- Type: **Fraunces** (display serif) + **Mulish** (body sans). ✅ approved.
+- **Branding:** use the name **"White Amfora" alone** (no Resort/Hotel/Apartments descriptor);
+  the descriptor lives in the tagline ("Sea-view apartments on the Rana e Hedhun beach"). Applied
+  in `src/config/site.ts` (`legalName` = "White Amfora").
+- **Tone/personality:** **calm, refined, coastal** (serene Adriatic escape; warm, unhurried,
+  specific voice).
+- **Anti-references:** corporate-chain hotel, party/club resort, generic booking-listing density
+  (plus the global impeccable bans). See `PRODUCT.md` + `DESIGN.md`.
 
 **Increment 2 — design system (added)**
 - Shared chrome now lives in `BaseLayout.astro`: `Header` + `Footer` + `WhatsAppBubble` +
