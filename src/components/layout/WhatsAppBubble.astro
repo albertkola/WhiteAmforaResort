@@ -1,0 +1,39 @@
+---
+import { site, whatsappLink } from '../../config/site';
+import { type Locale, useTranslations } from '../../i18n';
+import SocialIcon from './SocialIcon.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const href = whatsappLink(site.whatsappGreeting[locale]);
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={t('a11y.whatsapp')}
+  class="no-print group fixed bottom-5 right-5 z-40 inline-flex items-center justify-center
+         rounded-full bg-[#25D366] text-white shadow-xl shadow-ink/25 ring-1 ring-black/5
+         h-14 w-14 transition duration-300 ease-[var(--ease-luxury)]
+         hover:scale-105 hover:shadow-2xl focus-visible:outline-2 focus-visible:outline-offset-2
+         motion-safe:animate-[wa-pulse_3.2s_ease-in-out_infinite]"
+  style="bottom: calc(1.25rem + env(safe-area-inset-bottom));"
+>
+  <SocialIcon name="whatsapp" class="h-7 w-7" />
+  <span class="sr-only">{t('a11y.whatsapp')}</span>
+</a>
+
+<style>
+  @keyframes wa-pulse {
+    0%, 100% { box-shadow: 0 10px 25px -5px rgba(51,48,43,.25), 0 0 0 0 rgba(37,211,102,.45); }
+    50%      { box-shadow: 0 10px 25px -5px rgba(51,48,43,.25), 0 0 0 12px rgba(37,211,102,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a[aria-label] { animation: none !important; }
+  }
+</style>

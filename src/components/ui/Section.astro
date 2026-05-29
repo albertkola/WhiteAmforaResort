@@ -1,0 +1,51 @@
+---
+/**
+ * Section wrapper: handles background, vertical rhythm, and a max-width container.
+ * Use `width="full"` for edge-to-edge content (e.g. heroes, galleries).
+ */
+interface Props {
+  as?: string;
+  width?: 'narrow' | 'default' | 'wide' | 'full';
+  bg?: 'canvas' | 'deep' | 'sand' | 'sea' | 'ink' | 'none';
+  padding?: 'sm' | 'md' | 'lg';
+  id?: string;
+  class?: string;
+}
+
+const {
+  as: Tag = 'section',
+  width = 'default',
+  bg = 'none',
+  padding = 'lg',
+  id,
+  class: className = '',
+} = Astro.props;
+
+const backgrounds = {
+  canvas: 'bg-canvas text-ink',
+  deep: 'bg-canvas-deep text-ink',
+  sand: 'bg-sand text-ink',
+  sea: 'bg-sea text-canvas',
+  ink: 'bg-ink text-canvas',
+  none: '',
+};
+
+const paddings = {
+  sm: 'py-10 md:py-14',
+  md: 'py-14 md:py-20',
+  lg: 'py-20 md:py-28 lg:py-32',
+};
+
+const containers = {
+  narrow: 'mx-auto w-full max-w-3xl px-6',
+  default: 'mx-auto w-full max-w-6xl px-6',
+  wide: 'mx-auto w-full max-w-7xl px-6',
+  full: 'w-full',
+};
+---
+
+<Tag id={id} class={[backgrounds[bg], paddings[padding], className].join(' ')}>
+  <div class={containers[width]}>
+    <slot />
+  </div>
+</Tag>

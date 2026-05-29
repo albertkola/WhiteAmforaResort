@@ -21,7 +21,28 @@
     }
   },
   "footer": {
-    "rights": "All rights reserved."
+    "tagline": "Sea-view, self-catering apartments on the Rana e Hedhun beach in Shëngjin, Albania.",
+    "explore": "Explore",
+    "contact": "Contact",
+    "follow": "Follow",
+    "directions": "Get directions",
+    "rights": "All rights reserved.",
+    "disclaimer": "Details and imagery are being confirmed with the property."
+  },
+  "a11y": {
+    "home": "White Amfora — home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "primaryNav": "Primary navigation",
+    "switchLang": "Switch language",
+    "instagram": "White Amfora on Instagram",
+    "facebook": "White Amfora on Facebook",
+    "tiktok": "White Amfora on TikTok",
+    "booking": "Book White Amfora on Booking.com",
+    "whatsapp": "Chat with us on WhatsApp",
+    "map": "View the location on Google Maps",
+    "call": "Call White Amfora",
+    "email": "Email White Amfora"
   },
   "lang": {
     "switch": "Shqip"

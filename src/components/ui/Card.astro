@@ -1,0 +1,80 @@
+---
+/**
+ * Content card: optional image header, eyebrow, title, meta line, body slot,
+ * and an optional CTA. The whole card is clickable when `href` is provided.
+ * Subtle lift + image zoom on hover (motion-safe).
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  meta?: string;
+  href?: string;
+  image?: ImageMetadata;
+  alt?: string;
+  cta?: string;
+  aspect?: string;
+  class?: string;
+}
+
+const {
+  title,
+  eyebrow,
+  meta,
+  href,
+  image,
+  alt = '',
+  cta,
+  aspect = '4/3',
+  class: className = '',
+} = Astro.props;
+---
+
+<article
+  class={`group relative flex flex-col overflow-hidden rounded-3xl bg-canvas ring-1 ring-ink/10 transition duration-500 ease-[var(--ease-luxury)] motion-safe:hover:-translate-y-1 hover:ring-ink/20 hover:shadow-xl hover:shadow-ink/10 ${className}`}
+  data-reveal
+>
+  {image && (
+    <div class="overflow-hidden" style={`aspect-ratio:${aspect}`}>
+      <Picture
+        src={image}
+        alt={alt}
+        widths={[400, 640, 960]}
+        sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 90vw"
+        formats={['avif', 'webp']}
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-cover transition duration-700 ease-[var(--ease-luxury)] motion-safe:group-hover:scale-105"
+      />
+    </div>
+  )}
+
+  <div class="flex flex-1 flex-col p-6 md:p-7">
+    {eyebrow && (
+      <span class="text-eyebrow font-medium uppercase text-clay" style="letter-spacing:.16em">{eyebrow}</span>
+    )}
+    <h3 class="mt-2 font-display text-title font-light text-ink">
+      {href ? (
+        <a href={href} class="after:absolute after:inset-0 focus-visible:outline-none">{title}</a>
+      ) : (
+        title
+      )}
+    </h3>
+    {meta && <p class="mt-1 text-sm font-medium text-sea">{meta}</p>}
+
+    <div class="mt-3 text-ink-soft">
+      <slot />
+    </div>
+
+    {cta && (
+      <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-clay transition group-hover:gap-2.5">
+        {cta}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </span>
+    )}
+  </div>
+</article>

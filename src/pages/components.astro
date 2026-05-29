@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Picture from '../components/ui/Picture.astro';
+
+import seaBalcony from '../assets/placeholders/sea-balcony.jpg';
+import apartment from '../assets/placeholders/apartment.jpg';
+import beach from '../assets/placeholders/beach.jpg';
+import heroWide from '../assets/placeholders/hero-wide.jpg';
+
+const locale = 'en' as const;
+
+const cards = [
+  { title: 'Two-Bedroom Apartment', meta: '~65 m² · Sleeps 4 · Sea view', image: seaBalcony, alt: 'Placeholder — sea-view balcony', cta: 'Inquire about this apartment' },
+  { title: 'Garden Studio', meta: '~32 m² · Sleeps 2 · Kitchenette', image: apartment, alt: 'Placeholder — apartment interior', cta: 'Inquire about this apartment' },
+  { title: 'The Beach', meta: '700 m · Rana e Hedhun', image: beach, alt: 'Placeholder — Rana e Hedhun beach', cta: 'Explore the location' },
+];
+---
+
+<BaseLayout
+  title="Design System — White Amfora"
+  description="Internal component library and design-system preview."
+  locale={locale}
+  path="/components"
+  overHero
+>
+  <!-- Hero: demonstrates transparent header over image, then solid-on-scroll -->
+  <section class="relative isolate flex min-h-[78vh] items-end overflow-hidden">
+    <Picture
+      src={heroWide}
+      alt=""
+      widths={[768, 1280, 1920, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 -z-10 h-full w-full"
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/75 via-ink/25 to-ink/40"></div>
+
+    <div class="mx-auto w-full max-w-7xl px-6 pb-16 text-canvas md:pb-24">
+      <span class="text-eyebrow uppercase text-brass" style="letter-spacing:.2em">Increment 2 · Demo</span>
+      <h1 class="mt-4 max-w-3xl font-display text-hero font-light leading-none">The White Amfora design system</h1>
+      <p class="mt-5 max-w-xl text-lg/relaxed text-canvas/85">
+        Shared chrome, primitives, motion and imagery — the building blocks for every page.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <Button variant="primary" size="lg" href="#primitives">View primitives</Button>
+        <Button variant="light" size="lg" href="/">Back to home</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buttons -->
+  <Section id="primitives" bg="canvas">
+    <SectionHeading eyebrow="Primitives" title="Buttons" intro="Three core variants plus a light variant for use over dark imagery, in three sizes." />
+    <div class="mt-10 space-y-8">
+      <div class="flex flex-wrap items-center gap-4">
+        <Button variant="primary">Primary</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost link</Button>
+        <div class="rounded-2xl bg-ink p-4"><Button variant="light">Light (on dark)</Button></div>
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <Button variant="primary" size="sm">Small</Button>
+        <Button variant="primary" size="md">Medium</Button>
+        <Button variant="primary" size="lg">Large</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Section headings -->
+  <Section bg="deep">
+    <SectionHeading eyebrow="Primitives" title="Section headings" intro="Left-aligned and centered, with optional eyebrow and intro. Headings use Fraunces; body uses Mulish." />
+    <div class="mt-12 rounded-3xl bg-canvas p-8 md:p-12">
+      <SectionHeading align="center" eyebrow="Centered" title="A calm stay by the Adriatic" intro="Centered variant for hero-adjacent or full-width moments." />
+    </div>
+  </Section>
+
+  <!-- Cards -->
+  <Section bg="canvas">
+    <SectionHeading eyebrow="Primitives" title="Cards" intro="Image + meta + body + CTA. Whole card is clickable; image zooms and the card lifts on hover (motion-safe)." />
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+      {cards.map((c) => (
+        <Card title={c.title} meta={c.meta} image={c.image} alt={c.alt} href="#" cta={c.cta}>
+          <p>Placeholder copy. Spacious, light-filled and a short walk from the sand.</p>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Image / Picture -->
+  <Section bg="sand">
+    <SectionHeading eyebrow="Primitives" title="Optimized images" intro="The Picture component emits AVIF + WebP with responsive srcset and intrinsic sizing (no layout shift) via Astro <Image>." />
+    <Picture
+      src={seaBalcony}
+      alt="Placeholder — sea-view balcony at White Amfora"
+      widths={[640, 960, 1280, 1600]}
+      sizes="(min-width:1024px) 60vw, 90vw"
+      aspect="16/9"
+      class="mt-10 rounded-3xl shadow-xl shadow-ink/10"
+    />
+    <p class="mt-4 text-sm text-ink-soft">Note: all imagery here is a generated placeholder — to be replaced with the client’s real photos.</p>
+  </Section>
+</BaseLayout>

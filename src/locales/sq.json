@@ -21,7 +21,28 @@
     }
   },
   "footer": {
-    "rights": "Të gjitha të drejtat e rezervuara."
+    "tagline": "Apartamente me pamje nga deti dhe me kuzhinë, në plazhin Rana e Hedhun, Shëngjin, Shqipëri.",
+    "explore": "Eksploro",
+    "contact": "Kontakt",
+    "follow": "Na ndiqni",
+    "directions": "Merr drejtimet",
+    "rights": "Të gjitha të drejtat e rezervuara.",
+    "disclaimer": "Detajet dhe fotot janë duke u konfirmuar me pronën."
+  },
+  "a11y": {
+    "home": "White Amfora — kreu",
+    "openMenu": "Hap menynë",
+    "closeMenu": "Mbyll menynë",
+    "primaryNav": "Navigimi kryesor",
+    "switchLang": "Ndrysho gjuhën",
+    "instagram": "White Amfora në Instagram",
+    "facebook": "White Amfora në Facebook",
+    "tiktok": "White Amfora në TikTok",
+    "booking": "Rezervoni White Amfora në Booking.com",
+    "whatsapp": "Bisedoni me ne në WhatsApp",
+    "map": "Shikoni vendndodhjen në Google Maps",
+    "call": "Telefononi White Amfora",
+    "email": "Dërgoni email White Amfora"
   },
   "lang": {
     "switch": "English"

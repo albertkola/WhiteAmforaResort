@@ -1,13 +1,12 @@
 ---
-import { site } from '../config/site';
-import { type Locale, useTranslations, alternatePath, localeNames } from '../i18n';
+import { type Locale, useTranslations } from '../i18n';
+import Button from './ui/Button.astro';
 
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
 const t = useTranslations(locale);
-const alt = alternatePath('/', locale);
 
 const palette = [
   { name: 'canvas', label: 'Limestone', cls: 'bg-canvas', text: 'text-ink', ring: true },
@@ -19,87 +18,68 @@ const palette = [
 ];
 ---
 
-<main class="min-h-dvh">
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-sea text-canvas">
-    <div class="absolute inset-0 opacity-30"
-      style="background:
-        radial-gradient(60rem 60rem at 80% -10%, var(--color-sea-deep), transparent 60%),
-        radial-gradient(40rem 40rem at 0% 110%, var(--color-ink), transparent 55%);">
+<!-- Hero -->
+<section class="relative overflow-hidden bg-sea text-canvas">
+  <div
+    class="absolute inset-0 opacity-30"
+    style="background:
+      radial-gradient(60rem 60rem at 80% -10%, var(--color-sea-deep), transparent 60%),
+      radial-gradient(40rem 40rem at 0% 110%, var(--color-ink), transparent 55%);"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-6 pb-20 pt-36 md:pb-28 md:pt-44 lg:pt-52">
+    <span class="text-eyebrow uppercase opacity-80" style="letter-spacing:.18em">{t('home.hero.eyebrow')}</span>
+    <h1 class="mt-6 font-display text-hero font-light leading-none">{t('home.hero.title')}</h1>
+    <p class="mt-6 max-w-xl text-lg/relaxed opacity-90">{t('home.hero.tagline')}</p>
+
+    <div class="mt-10 flex flex-wrap gap-4">
+      <Button variant="primary" size="lg" href="#">{t('home.hero.cta_primary')}</Button>
+      <Button variant="light" size="lg" href="#">{t('home.hero.cta_secondary')}</Button>
     </div>
+  </div>
+</section>
 
-    <div class="relative mx-auto max-w-6xl px-6 py-20 md:py-28 lg:py-36">
-      <div class="flex items-center justify-between text-sm tracking-wide">
-        <span class="uppercase opacity-80" style="letter-spacing:.18em">{t('home.hero.eyebrow')}</span>
-        <a href={alt.href}
-           class="rounded-full border border-canvas/40 px-4 py-1.5 transition hover:bg-canvas hover:text-sea"
-           hreflang={alt.locale} aria-label={`Switch to ${localeNames[alt.locale]}`}>
-          {t('lang.switch')}
-        </a>
-      </div>
+<!-- Scaffold notice + design proposal preview -->
+<section class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+  <p class="inline-block rounded-full bg-sand px-4 py-1.5 text-sm font-medium text-ink">
+    Increment 1–2 · scaffold, design system &amp; proposal preview
+  </p>
 
-      <h1 class="mt-10 font-display text-hero font-light leading-none">
-        {t('home.hero.title')}
-      </h1>
-      <p class="mt-6 max-w-xl text-lg/relaxed opacity-90">{t('home.hero.tagline')}</p>
+  <h2 class="mt-8 font-display text-display font-light text-ink" data-reveal>Proposed palette</h2>
+  <p class="mt-3 max-w-prose text-ink-soft" data-reveal>
+    Direction: <strong class="text-ink">coastal editorial luxury</strong> — warm limestone canvas,
+    terracotta “amfora” accent, deep Adriatic teal, sand &amp; brass. Awaiting your sign-off.
+  </p>
 
-      <div class="mt-10 flex flex-wrap gap-4">
-        <a href="#"
-           class="rounded-full bg-clay px-7 py-3 font-medium text-canvas shadow-lg shadow-ink/20 transition hover:bg-clay-deep">
-          {t('home.hero.cta_primary')}
-        </a>
-        <a href="#"
-           class="rounded-full border border-canvas/50 px-7 py-3 font-medium transition hover:bg-canvas hover:text-sea">
-          {t('home.hero.cta_secondary')}
-        </a>
-      </div>
+  <ul class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6" data-reveal-group>
+    {palette.map((c) => (
+      <li class={`flex h-28 flex-col justify-end rounded-2xl p-4 ${c.cls} ${c.text} ${c.ring ? 'ring-1 ring-ink/10' : ''}`} data-reveal>
+        <span class="text-sm font-medium">{c.label}</span>
+        <span class="text-xs opacity-70">{c.name}</span>
+      </li>
+    ))}
+  </ul>
+
+  <h2 class="mt-16 font-display text-display font-light text-ink" data-reveal>Typography</h2>
+  <div class="mt-6 grid gap-10 lg:grid-cols-2">
+    <div data-reveal>
+      <p class="text-eyebrow uppercase text-clay" style="letter-spacing:.16em">Display · Fraunces</p>
+      <p class="mt-3 font-display text-5xl font-light text-ink">Mirëserdhët në Adriatik</p>
+      <p class="mt-2 font-display text-3xl italic text-ink-soft">A calm, sea-view stay</p>
     </div>
-  </section>
-
-  <!-- Scaffold notice + design proposal preview -->
-  <section class="mx-auto max-w-6xl px-6 py-16 md:py-20">
-    <p class="inline-block rounded-full bg-sand px-4 py-1.5 text-sm font-medium text-ink">
-      Increment 1 · scaffold &amp; design proposal preview
-    </p>
-
-    <h2 class="mt-8 font-display text-display font-light text-ink">Proposed palette</h2>
-    <p class="mt-3 max-w-prose text-ink-soft">
-      Direction: <strong class="text-ink">coastal editorial luxury</strong> — warm limestone canvas,
-      terracotta “amfora” accent, deep Adriatic teal, sand &amp; brass. Awaiting your sign-off.
-    </p>
-
-    <ul class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-      {palette.map((c) => (
-        <li class={`rounded-2xl p-4 h-28 flex flex-col justify-end ${c.cls} ${c.text} ${c.ring ? 'ring-1 ring-ink/10' : ''}`}>
-          <span class="text-sm font-medium">{c.label}</span>
-          <span class="text-xs opacity-70">{c.name}</span>
-        </li>
-      ))}
-    </ul>
-
-    <h2 class="mt-16 font-display text-display font-light text-ink">Typography</h2>
-    <div class="mt-6 grid gap-10 lg:grid-cols-2">
-      <div>
-        <p class="text-sm uppercase text-clay" style="letter-spacing:.16em">Display · Fraunces</p>
-        <p class="mt-3 font-display text-5xl font-light text-ink">Mirëserdhët në Adriatik</p>
-        <p class="mt-2 font-display text-3xl italic text-ink-soft">A calm, sea-view stay</p>
-      </div>
-      <div>
-        <p class="text-sm uppercase text-clay" style="letter-spacing:.16em">Body · Mulish</p>
-        <p class="mt-3 max-w-prose text-ink-soft">
-          Spacious self-catering apartments steps from the Rana e Hedhun beach in Shëngjin —
-          balconies over the northern Albanian Adriatic, with the quiet dune coastline at your door.
-          Apartamente të gjera me pamje nga deti, pranë plazhit Rana e Hedhun. (ëéçÇËÁ — diacritics)
-        </p>
-      </div>
+    <div data-reveal>
+      <p class="text-eyebrow uppercase text-clay" style="letter-spacing:.16em">Body · Mulish</p>
+      <p class="mt-3 max-w-prose text-ink-soft">
+        Spacious self-catering apartments steps from the Rana e Hedhun beach in Shëngjin —
+        balconies over the northern Albanian Adriatic, with the quiet dune coastline at your door.
+        Apartamente të gjera me pamje nga deti, pranë plazhit Rana e Hedhun. (ëéçÇËÁ — diacritics)
+      </p>
     </div>
-  </section>
+  </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-ink/10 bg-canvas-deep">
-    <div class="mx-auto max-w-6xl px-6 py-10 text-sm text-ink-soft flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-      <span class="font-display text-lg text-ink">{site.name}</span>
-      <span>{site.address.city}, {site.address.country} · © {new Date().getFullYear()} {t('footer.rights')}</span>
-    </div>
-  </footer>
-</main>
+  <p class="mt-12 text-sm text-ink-soft" data-reveal>
+    See the full component library at
+    <a href="/components" class="font-medium text-clay underline decoration-clay/40 underline-offset-4 hover:decoration-clay">/components</a>.
+  </p>
+</section>

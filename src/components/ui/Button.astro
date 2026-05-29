@@ -1,0 +1,47 @@
+---
+/**
+ * Button / link primitive.
+ * Renders an <a> when `href` is set, otherwise a <button>.
+ * Variants: primary (clay), outline, ghost, light (for use over dark heroes).
+ */
+interface Props {
+  variant?: 'primary' | 'outline' | 'ghost' | 'light';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-wide transition duration-300 ease-[var(--ease-luxury)] will-change-transform focus-visible:outline-2';
+
+const sizes = {
+  sm: 'px-5 py-2 text-sm',
+  md: 'px-7 py-3 text-base',
+  lg: 'px-9 py-4 text-lg',
+};
+
+const variants = {
+  primary: 'bg-clay text-canvas shadow-lg shadow-ink/15 hover:bg-clay-deep hover:-translate-y-0.5 active:translate-y-0',
+  outline: 'border border-ink/25 text-ink hover:border-clay hover:text-clay',
+  ghost: 'text-ink hover:text-clay underline decoration-clay/40 underline-offset-4 hover:decoration-clay',
+  light: 'border border-canvas/50 text-canvas hover:bg-canvas hover:text-sea',
+};
+
+const cls = [base, sizes[size], variants[variant], className].join(' ');
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class={cls} {...(href ? { href } : { type })} {...rest}>
+  <slot />
+</Tag>

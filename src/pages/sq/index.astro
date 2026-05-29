@@ -7,6 +7,6 @@ const locale = 'sq' as const;
 const t = useTranslations(locale);
 ---
 
-<BaseLayout title={t('meta.title')} description={t('meta.description')} locale={locale} path="/">
+<BaseLayout title={t('meta.title')} description={t('meta.description')} locale={locale} path="/" overHero>
   <HomePlaceholder locale={locale} />
 </BaseLayout>

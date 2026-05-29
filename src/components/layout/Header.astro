@@ -1,0 +1,202 @@
+---
+import { site } from '../../config/site';
+import { type Locale, useTranslations, localizedPath, alternatePath, localeNames } from '../../i18n';
+import Logo from './Logo.astro';
+
+interface Props {
+  locale: Locale;
+  path?: string;
+  /** When true the header floats transparently over a dark hero, then turns solid on scroll. */
+  overHero?: boolean;
+}
+
+const { locale, path = '/', overHero = false } = Astro.props;
+const t = useTranslations(locale);
+const alt = alternatePath(path, locale);
+
+const navItems = [
+  { key: 'nav.home', to: '/' },
+  { key: 'nav.rooms', to: '/rooms' },
+  { key: 'nav.gallery', to: '/gallery' },
+  { key: 'nav.location', to: '/location' },
+  { key: 'nav.contact', to: '/contact' },
+];
+
+const currentPath = path.replace(/\/+$/, '') || '/';
+const isActive = (to: string) => (to.replace(/\/+$/, '') || '/') === currentPath;
+
+// Non-hero pages render solid immediately; hero pages start transparent.
+const initialState = overHero ? 'top' : 'solid';
+---
+
+<header
+  id="site-header"
+  data-over-hero={overHero ? 'true' : 'false'}
+  data-state={initialState}
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,color] duration-300 ease-[var(--ease-luxury)]
+         text-canvas
+         data-[state=solid]:bg-canvas/90 data-[state=solid]:text-ink data-[state=solid]:shadow-sm data-[state=solid]:shadow-ink/5 data-[state=solid]:backdrop-blur-md
+         data-[state=solid]:border-b data-[state=solid]:border-ink/10"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 md:py-5">
+    <a href={localizedPath(locale, '/')} class="flex items-center gap-2.5 font-display text-xl tracking-wide" aria-label={t('a11y.home')}>
+      <Logo class="h-7 w-7" />
+      <span class="font-light">White Amfora</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-8 lg:flex" aria-label={t('a11y.primaryNav')}>
+      {navItems.map((item) => (
+        <a
+          href={localizedPath(locale, item.to)}
+          aria-current={isActive(item.to) ? 'page' : undefined}
+          class="group relative text-sm font-medium tracking-wide transition-colors hover:text-clay aria-[current=page]:text-clay"
+        >
+          {t(item.key)}
+          <span class="absolute -bottom-1.5 left-0 h-px w-0 bg-clay transition-all duration-300 ease-[var(--ease-luxury)] group-hover:w-full group-aria-[current=page]:w-full"></span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2 md:gap-3">
+      <a
+        href={alt.href}
+        hreflang={alt.locale}
+        aria-label={t('a11y.switchLang')}
+        class="rounded-full border border-current/30 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition hover:border-clay hover:text-clay"
+      >
+        {t('lang.switch')}
+      </a>
+
+      <a
+        href={localizedPath(locale, '/contact')}
+        class="hidden rounded-full bg-clay px-5 py-2.5 text-sm font-medium text-canvas shadow-lg shadow-ink/15 transition hover:bg-clay-deep hover:-translate-y-0.5 sm:inline-flex"
+      >
+        {t('nav.book')}
+      </a>
+
+      <!-- Hamburger -->
+      <button
+        id="menu-toggle"
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:text-clay lg:hidden"
+        aria-label={t('a11y.openMenu')}
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div
+  id="mobile-nav"
+  class="fixed inset-0 z-[60] hidden lg:hidden"
+  aria-hidden="true"
+>
+  <div id="mobile-backdrop" class="absolute inset-0 bg-ink/40 opacity-0 backdrop-blur-sm transition-opacity duration-300"></div>
+
+  <nav
+    id="mobile-panel"
+    aria-label={t('a11y.primaryNav')}
+    class="absolute inset-y-0 right-0 flex w-[min(88vw,22rem)] translate-x-full flex-col bg-canvas text-ink shadow-2xl transition-transform duration-300 ease-[var(--ease-luxury)]"
+  >
+    <div class="flex items-center justify-between border-b border-ink/10 px-6 py-4">
+      <span class="flex items-center gap-2.5 font-display text-lg"><Logo class="h-6 w-6" /> White Amfora</span>
+      <button id="menu-close" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-full hover:text-clay" aria-label={t('a11y.closeMenu')}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-1 flex-col gap-1 px-6 py-6">
+      {navItems.map((item) => (
+        <a
+          href={localizedPath(locale, item.to)}
+          aria-current={isActive(item.to) ? 'page' : undefined}
+          class="border-b border-ink/5 py-3 font-display text-2xl font-light transition-colors hover:text-clay aria-[current=page]:text-clay"
+        >
+          {t(item.key)}
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-auto flex items-center justify-between gap-3 border-t border-ink/10 px-6 py-5">
+      <a href={alt.href} hreflang={alt.locale} class="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold uppercase tracking-wider hover:border-clay hover:text-clay">
+        {t('lang.switch')} · {localeNames[alt.locale]}
+      </a>
+      <a href={localizedPath(locale, '/contact')} class="rounded-full bg-clay px-5 py-2.5 text-sm font-medium text-canvas hover:bg-clay-deep">
+        {t('nav.book')}
+      </a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  const header = document.getElementById('site-header');
+  const toggle = document.getElementById('menu-toggle');
+  const closeBtn = document.getElementById('menu-close');
+  const drawer = document.getElementById('mobile-nav');
+  const backdrop = document.getElementById('mobile-backdrop');
+  const panel = document.getElementById('mobile-panel');
+
+  // ---- Transparent-over-hero → solid-on-scroll ----
+  if (header && header.dataset.overHero === 'true') {
+    const onScroll = () => {
+      header.dataset.state = window.scrollY > 24 ? 'solid' : 'top';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ---- Mobile drawer ----
+  let lastFocused: HTMLElement | null = null;
+
+  const openMenu = () => {
+    if (!drawer || !panel || !backdrop || !toggle) return;
+    lastFocused = document.activeElement as HTMLElement;
+    drawer.classList.remove('hidden');
+    drawer.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    // next frame for transition
+    requestAnimationFrame(() => {
+      backdrop.classList.add('opacity-100');
+      panel.classList.remove('translate-x-full');
+    });
+    panel.querySelector<HTMLElement>('a, button')?.focus();
+  };
+
+  const closeMenu = () => {
+    if (!drawer || !panel || !backdrop || !toggle) return;
+    backdrop.classList.remove('opacity-100');
+    panel.classList.add('translate-x-full');
+    toggle.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    const done = () => {
+      drawer.classList.add('hidden');
+      panel.removeEventListener('transitionend', done);
+    };
+    panel.addEventListener('transitionend', done);
+    lastFocused?.focus();
+  };
+
+  toggle?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+  backdrop?.addEventListener('click', closeMenu);
+  drawer?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer && !drawer.classList.contains('hidden')) closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024 && drawer && !drawer.classList.contains('hidden')) closeMenu();
+  });
+</script>

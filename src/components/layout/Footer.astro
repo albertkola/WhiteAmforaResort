@@ -1,0 +1,90 @@
+---
+import { site } from '../../config/site';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import Logo from './Logo.astro';
+import SocialIcon from './SocialIcon.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const quickLinks = [
+  { key: 'nav.rooms', to: '/rooms' },
+  { key: 'nav.gallery', to: '/gallery' },
+  { key: 'nav.location', to: '/location' },
+  { key: 'nav.contact', to: '/contact' },
+];
+
+const socials = [
+  { name: 'instagram', href: site.instagramUrl, label: t('a11y.instagram') },
+  { name: 'booking', href: site.bookingComUrl, label: t('a11y.booking') },
+  { name: 'facebook', href: site.facebookUrl, label: t('a11y.facebook') },
+  { name: 'tiktok', href: site.tiktokUrl, label: t('a11y.tiktok') },
+].filter((s) => s.href);
+
+const addr = site.address;
+---
+
+<footer class="bg-ink text-canvas">
+  <div class="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 md:py-20 lg:grid-cols-12">
+    <!-- Brand -->
+    <div class="lg:col-span-5">
+      <span class="flex items-center gap-2.5 font-display text-2xl font-light">
+        <Logo class="h-7 w-7 text-brass" /> White Amfora
+      </span>
+      <p class="mt-4 max-w-sm text-canvas/70">{t('footer.tagline')}</p>
+
+      {socials.length > 0 && (
+        <div class="mt-6 flex items-center gap-3">
+          {socials.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={s.label}
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-canvas/20 text-canvas/80 transition hover:border-brass hover:text-brass"
+            >
+              <SocialIcon name={s.name as any} />
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Quick links -->
+    <nav class="lg:col-span-3" aria-label={t('footer.explore')}>
+      <h2 class="text-eyebrow font-semibold uppercase tracking-[.18em] text-brass">{t('footer.explore')}</h2>
+      <ul class="mt-4 space-y-2.5">
+        {quickLinks.map((l) => (
+          <li>
+            <a href={localizedPath(locale, l.to)} class="text-canvas/75 transition hover:text-canvas">{t(l.key)}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Contact -->
+    <div class="lg:col-span-4">
+      <h2 class="text-eyebrow font-semibold uppercase tracking-[.18em] text-brass">{t('footer.contact')}</h2>
+      <address class="mt-4 space-y-2.5 not-italic text-canvas/75">
+        <p>{addr.street}, {addr.city}, {addr.region}, {addr.country}</p>
+        <p><a href={`tel:${site.phone}`} aria-label={t('a11y.call')} class="transition hover:text-canvas">{site.phoneDisplay}</a></p>
+        <p><a href={`mailto:${site.email}`} aria-label={t('a11y.email')} class="transition hover:text-canvas">{site.email}</a></p>
+        <p>
+          <a href={site.mapLink} target="_blank" rel="noopener noreferrer" aria-label={t('a11y.map')} class="inline-flex items-center gap-1.5 transition hover:text-canvas">
+            <SocialIcon name="map" class="h-4 w-4" /> {t('footer.directions')}
+          </a>
+        </p>
+      </address>
+    </div>
+  </div>
+
+  <div class="border-t border-canvas/10">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-sm text-canvas/55 sm:flex-row sm:items-center sm:justify-between">
+      <span>© {new Date().getFullYear()} {site.name}. {t('footer.rights')}</span>
+      <span class="text-canvas/40">{t('footer.disclaimer')}</span>
+    </div>
+  </div>
+</footer>
