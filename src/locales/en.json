@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "title": "White Amfora — Beachfront Apartments in Shëngjin, Albania",
+    "description": "Sea-view apartments steps from the Rana e Hedhun beach in Shëngjin, Albania. Spacious, self-catering stays on the northern Adriatic coast."
+  },
+  "nav": {
+    "home": "Home",
+    "rooms": "Apartments",
+    "gallery": "Gallery",
+    "location": "Location",
+    "contact": "Contact",
+    "book": "Book / Inquire"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Shëngjin · Albanian Adriatic",
+      "title": "White Amfora",
+      "tagline": "Sea-view apartments on the Rana e Hedhun beach",
+      "cta_primary": "Check availability",
+      "cta_secondary": "WhatsApp us"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "lang": {
+    "switch": "Shqip"
+  }
+}

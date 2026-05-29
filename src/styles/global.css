@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Self-hosted variable fonts (no render-blocking external requests) */
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/mulish";
+
+/* =========================================================================
+   White Amfora — luxury design tokens
+   Direction: coastal editorial luxury (white + amfora/terracotta + Adriatic).
+   Neutrals are warm-tinted (never pure gray). Colors in OKLCH.
+   These @theme tokens also generate Tailwind utilities, e.g.:
+     bg-canvas, text-ink, text-clay, bg-sea, font-display, text-hero
+   ========================================================================= */
+@theme {
+  /* Typeface stacks */
+  --font-display: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: "Mulish Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Brand palette */
+  --color-canvas: oklch(97% 0.012 85);      /* warm limestone background */
+  --color-canvas-deep: oklch(94% 0.018 82); /* slightly deeper section bg */
+  --color-ink: oklch(27% 0.02 60);          /* deep warm charcoal text */
+  --color-ink-soft: oklch(45% 0.02 60);     /* muted body text */
+  --color-clay: oklch(62% 0.12 42);         /* terracotta / amphora accent */
+  --color-clay-deep: oklch(54% 0.12 40);    /* hover/darker clay */
+  --color-sea: oklch(45% 0.055 205);        /* Adriatic deep teal */
+  --color-sea-deep: oklch(38% 0.05 205);
+  --color-sand: oklch(86% 0.028 75);        /* warm taupe neutral */
+  --color-brass: oklch(72% 0.075 82);       /* muted gold detail */
+
+  /* Fluid display type scale (clamped) */
+  --text-eyebrow: 0.8125rem;
+  --text-hero: clamp(2.75rem, 1.6rem + 5.2vw, 5.5rem);
+  --text-display: clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem);
+  --text-title: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+
+  /* Motion */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout */
+  --container-prose: 68ch;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sea);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-clay);
+    color: var(--color-canvas);
+  }
+}
+
+/* Respect reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide print-only floating elements (e.g. WhatsApp bubble) when printing */
+@media print {
+  .no-print { display: none !important; }
+}

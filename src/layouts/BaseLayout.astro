@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+import { site } from '../config/site';
+import { type Locale, defaultLocale, localizedPath } from '../i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  /** Path without locale prefix, e.g. "/" or "/rooms" — used for hreflang alternates. */
+  path?: string;
+}
+
+const { title, description, locale, path = '/' } = Astro.props;
+
+const canonical = new URL(localizedPath(locale, path), Astro.site).toString();
+const enHref = new URL(localizedPath('en', path), Astro.site).toString();
+const sqHref = new URL(localizedPath('sq', path), Astro.site).toString();
+---
+
+<!doctype html>
+<html lang={locale === defaultLocale ? 'en' : locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- hreflang alternates -->
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="sq" href={sqHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
+
+    <!-- icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph (expanded in the SEO increment) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

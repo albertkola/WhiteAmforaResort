@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "title": "White Amfora — Apartamente buzë detit në Shëngjin, Shqipëri",
+    "description": "Apartamente me pamje nga deti, pranë plazhit Rana e Hedhun në Shëngjin, Shqipëri. Qëndrime të gjera, me kuzhinë, në bregdetin verior të Adriatikut."
+  },
+  "nav": {
+    "home": "Kreu",
+    "rooms": "Apartamentet",
+    "gallery": "Galeria",
+    "location": "Vendndodhja",
+    "contact": "Kontakt",
+    "book": "Rezervo / Pyet"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Shëngjin · Adriatiku Shqiptar",
+      "title": "White Amfora",
+      "tagline": "Apartamente me pamje nga deti në plazhin Rana e Hedhun",
+      "cta_primary": "Shiko disponueshmërinë",
+      "cta_secondary": "Na shkruani në WhatsApp"
+    }
+  },
+  "footer": {
+    "rights": "Të gjitha të drejtat e rezervuara."
+  },
+  "lang": {
+    "switch": "English"
+  }
+}
