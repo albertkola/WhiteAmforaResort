@@ -1,0 +1,25 @@
+---
+import type { Locale } from '../../i18n';
+import Hero from './Hero.astro';
+import IntroTeaser from './IntroTeaser.astro';
+import Highlights from './Highlights.astro';
+import ApartmentsPreview from './ApartmentsPreview.astro';
+import GalleryTeaser from './GalleryTeaser.astro';
+import LocationTeaser from './LocationTeaser.astro';
+import Testimonials from './Testimonials.astro';
+import FinalCta from './FinalCta.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<Hero locale={locale} />
+<IntroTeaser locale={locale} />
+<Highlights locale={locale} />
+<ApartmentsPreview locale={locale} />
+<GalleryTeaser locale={locale} />
+<LocationTeaser locale={locale} />
+<Testimonials locale={locale} />
+<FinalCta locale={locale} />

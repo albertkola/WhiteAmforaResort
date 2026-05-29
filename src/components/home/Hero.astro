@@ -1,0 +1,91 @@
+---
+import { Picture } from 'astro:assets';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { site, whatsappLink } from '../../config/site';
+import Button from '../ui/Button.astro';
+import heroImg from '../../assets/photos/hero-cove.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const wa = whatsappLink(site.whatsappGreeting[locale]);
+---
+
+<section class="relative isolate flex min-h-[88svh] items-end overflow-hidden">
+  <Picture
+    src={heroImg}
+    alt={t('home.alt.hero')}
+    widths={[768, 1280, 1920, 2400]}
+    sizes="100vw"
+    formats={['avif', 'webp']}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 -z-10 h-full w-full object-cover"
+  />
+  <!-- scrim: dark at the base for text, light touch up top so the header reads -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/30"></div>
+
+  <div class="mx-auto w-full max-w-7xl px-6 pb-16 text-canvas md:pb-24 lg:pb-28">
+    <div class="max-w-3xl" data-hero>
+      <span class="hero-line block text-eyebrow font-medium uppercase text-brass" style="letter-spacing:.22em; --d:0ms">
+        {t('home.hero.eyebrow')}
+      </span>
+      <h1 class="hero-line mt-5 font-display text-hero font-light leading-[0.95]" style="--d:90ms">
+        {t('home.hero.title')}
+      </h1>
+      <p class="hero-line mt-5 max-w-xl text-lg/relaxed text-canvas/90 md:text-xl/relaxed" style="--d:180ms">
+        {t('home.hero.tagline')}
+      </p>
+      <div class="hero-line mt-9 flex flex-wrap gap-4" style="--d:270ms">
+        <Button variant="primary" size="lg" href={localizedPath(locale, '/contact')}>
+          {t('home.hero.cta_primary')}
+        </Button>
+        <Button variant="light" size="lg" href={wa} target="_blank" rel="noopener noreferrer">
+          {t('home.hero.cta_secondary')}
+        </Button>
+      </div>
+    </div>
+  </div>
+
+  <!-- scroll cue -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-5 flex justify-center text-canvas/70" aria-hidden="true">
+    <span class="hero-cue h-9 w-5 rounded-full border border-canvas/40"></span>
+  </div>
+</section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    [data-hero] .hero-line {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: hero-rise 0.85s var(--ease-luxury) forwards;
+      animation-delay: var(--d, 0ms);
+    }
+    @keyframes hero-rise {
+      to { opacity: 1; transform: none; }
+    }
+    .hero-cue {
+      position: relative;
+    }
+    .hero-cue::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 7px;
+      width: 3px;
+      height: 7px;
+      margin-left: -1.5px;
+      border-radius: 2px;
+      background: currentColor;
+      animation: hero-cue-move 1.8s var(--ease-luxury) infinite;
+    }
+    @keyframes hero-cue-move {
+      0% { opacity: 0; transform: translateY(0); }
+      40% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+  }
+</style>

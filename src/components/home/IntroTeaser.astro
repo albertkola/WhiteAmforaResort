@@ -1,0 +1,35 @@
+---
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import Picture from '../ui/Picture.astro';
+import Button from '../ui/Button.astro';
+import introImg from '../../assets/photos/balcony-doors.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="bg-canvas py-20 md:py-28 lg:py-32">
+  <div class="mx-auto grid max-w-7xl items-center gap-10 px-6 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-7" data-reveal>
+      <Picture
+        src={introImg}
+        alt={t('home.alt.intro')}
+        widths={[480, 768, 1024, 1400]}
+        sizes="(min-width:1024px) 56vw, 92vw"
+        aspect="4/3"
+        class="rounded-[1.75rem] shadow-xl shadow-ink/10"
+      />
+    </div>
+
+    <div class="lg:col-span-5" data-reveal>
+      <h2 class="font-display text-display font-light text-ink">{t('home.intro.title')}</h2>
+      <p class="mt-6 max-w-prose text-lg/relaxed text-ink-soft">{t('home.intro.body')}</p>
+      <div class="mt-8">
+        <Button variant="outline" href={localizedPath(locale, '/about')}>{t('home.intro.cta')}</Button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -19,6 +19,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# scratch / temp
+.img-candidates/
+
 # os / editor
 .DS_Store
 Thumbs.db

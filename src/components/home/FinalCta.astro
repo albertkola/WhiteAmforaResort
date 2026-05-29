@@ -1,0 +1,39 @@
+---
+import { Picture } from 'astro:assets';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import { site, whatsappLink } from '../../config/site';
+import Button from '../ui/Button.astro';
+import bg from '../../assets/photos/beach-cove2.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const wa = whatsappLink(site.whatsappGreeting[locale]);
+---
+
+<section class="relative isolate overflow-hidden">
+  <Picture
+    src={bg}
+    alt=""
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    formats={['avif', 'webp']}
+    loading="lazy"
+    decoding="async"
+    class="absolute inset-0 -z-10 h-full w-full object-cover"
+  />
+  <div class="absolute inset-0 -z-10 bg-ink/70"></div>
+
+  <div class="mx-auto max-w-3xl px-6 py-24 text-center text-canvas md:py-32" data-reveal>
+    <h2 class="font-display text-display font-light text-balance">{t('home.cta.title')}</h2>
+    <p class="mx-auto mt-5 max-w-xl text-lg/relaxed text-canvas/85">{t('home.cta.body')}</p>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <Button variant="primary" size="lg" href={localizedPath(locale, '/contact')}>{t('home.cta.primary')}</Button>
+      <Button variant="light" size="lg" href={wa} target="_blank" rel="noopener noreferrer">{t('home.cta.whatsapp')}</Button>
+      <Button variant="light" size="lg" href={site.bookingComUrl} target="_blank" rel="noopener noreferrer">{t('home.cta.booking')}</Button>
+    </div>
+  </div>
+</section>

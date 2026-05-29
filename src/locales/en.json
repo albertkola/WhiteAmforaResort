@@ -15,9 +15,77 @@
     "hero": {
       "eyebrow": "Shëngjin · Albanian Adriatic",
       "title": "White Amfora",
-      "tagline": "Sea-view apartments on the Rana e Hedhun beach",
+      "tagline": "Sea-view apartments on the quiet Rana e Hedhun beach",
       "cta_primary": "Check availability",
       "cta_secondary": "WhatsApp us"
+    },
+    "intro": {
+      "title": "A quiet stretch of the Adriatic, with room to settle in",
+      "body": "White Amfora sits where the pines meet the sand at Rana e Hedhun, one of the calmest corners of the Shëngjin coast. Each apartment has its own kitchen, a living room to spread out in, and a balcony facing the sea. Come for a week, cook a long lunch, and let the afternoons go slow.",
+      "cta": "Our story"
+    },
+    "highlights": {
+      "title": "What makes a stay here easy",
+      "items": [
+        { "label": "Steps from the beach", "desc": "About 700 m to the Rana e Hedhun sand and pines." },
+        { "label": "Sea-view balconies", "desc": "Wake up to the Adriatic from your own balcony." },
+        { "label": "Your own kitchen", "desc": "A full kitchen and living room in every apartment." },
+        { "label": "Free parking", "desc": "Park on site and forget the car all week." },
+        { "label": "Fast Wi-Fi", "desc": "Quick, free connection throughout your stay." },
+        { "label": "51 km from Tirana airport", "desc": "An easy drive up the coast to Shëngjin." }
+      ]
+    },
+    "apartments": {
+      "title": "The apartments",
+      "intro": "Spacious, light, and made for more than one night.",
+      "card_title": "Two-Bedroom Apartment",
+      "card_meta": "Two bedrooms · Living room · Sea-view balcony",
+      "card_body": "Two bedrooms, a living room, and a kitchen that opens onto a balcony over the sea. Room for a family or two couples sharing the coast.",
+      "cta": "View the apartment",
+      "more_label": "More layouts on the way",
+      "more_body": "We are confirming the full range of apartments. Message us and we will tell you what is available for your dates."
+    },
+    "gallery": {
+      "title": "Around White Amfora",
+      "intro": "The beach, the light, and the long Adriatic evenings.",
+      "cta": "See the gallery"
+    },
+    "location": {
+      "title": "Where you'll be",
+      "intro": "On the northern Albanian coast at Rana e Hedhun, just south of Shëngjin town. A quiet beach in front, and easy day trips within reach.",
+      "items": [
+        { "label": "Rana e Hedhun beach", "value": "≈ 700 m" },
+        { "label": "Tirana airport", "value": "≈ 51 km" },
+        { "label": "Rozafa Castle, Shkodër", "value": "≈ 44 km" },
+        { "label": "Lake Skadar", "value": "≈ 46 km" }
+      ],
+      "cta": "Get directions"
+    },
+    "testimonials": {
+      "title": "What guests notice first",
+      "items": [
+        { "quote": "The most beautiful part of the Shëngjin beach is right in front. Clean sand, clear water, and pines for shade.", "attribution": "Summer guest" },
+        { "quote": "A spacious apartment with a real kitchen and a balcony straight onto the sea. Quiet, and easy with the family.", "attribution": "Family stay" },
+        { "quote": "Calm even in August. You walk out and you are on the sand. Exactly what we wanted.", "attribution": "Returning guest" }
+      ],
+      "note": "Representative of recent guest feedback for the Rana e Hedhun area. Real guest quotes to follow."
+    },
+    "cta": {
+      "title": "Plan your stay at White Amfora",
+      "body": "Tell us your dates and we will come back with availability and a price. The fastest way to reach us is WhatsApp.",
+      "primary": "Inquire about dates",
+      "whatsapp": "Message on WhatsApp",
+      "booking": "Book on Booking.com"
+    },
+    "alt": {
+      "hero": "Pine trees above a quiet turquoise cove on the Albanian Adriatic coast",
+      "intro": "Open balcony doors framing the sea and coastal pines",
+      "apartment": "Bright, airy apartment interior with sea light",
+      "location": "Adriatic bay and beach seen from the pine-covered hillside",
+      "gallery1": "Sea view through a balcony at dusk",
+      "gallery2": "Sandy Albanian beach lined with umbrellas",
+      "gallery3": "Oleander flowers along the coastal path",
+      "gallery4": "Shëngjin-area coastal town above the water"
     }
   },
   "footer": {

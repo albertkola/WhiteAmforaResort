@@ -29,22 +29,35 @@ export function getLocaleFromPath(pathname: string): Locale {
   return isLocale(seg) ? seg : defaultLocale;
 }
 
+/** Raw dot-path lookup against a locale dictionary. Returns the value or undefined. */
+function lookup(locale: Locale, key: string): unknown {
+  return key.split('.').reduce<unknown>((obj, part) => {
+    if (obj && typeof obj === 'object' && part in obj) {
+      return (obj as Record<string, unknown>)[part];
+    }
+    return undefined;
+  }, dictionaries[locale]);
+}
+
 /**
  * Translator for a given locale. Supports dot-paths ("home.hero.title").
  * Falls back to the key itself if a translation is missing (visible in dev).
  */
 export function useTranslations(locale: Locale) {
-  const dict = dictionaries[locale];
   return function t(key: string): string {
-    const value = key
-      .split('.')
-      .reduce<unknown>((obj, part) => {
-        if (obj && typeof obj === 'object' && part in obj) {
-          return (obj as Record<string, unknown>)[part];
-        }
-        return undefined;
-      }, dict);
+    const value = lookup(locale, key);
     return typeof value === 'string' ? value : key;
+  };
+}
+
+/**
+ * List accessor for array-valued locale entries (e.g. "home.highlights.items").
+ * Returns a typed array, or [] if missing.
+ */
+export function useList(locale: Locale) {
+  return function list<T = Record<string, string>>(key: string): T[] {
+    const value = lookup(locale, key);
+    return Array.isArray(value) ? (value as T[]) : [];
   };
 }
 

@@ -15,9 +15,77 @@
     "hero": {
       "eyebrow": "Shëngjin · Adriatiku Shqiptar",
       "title": "White Amfora",
-      "tagline": "Apartamente me pamje nga deti në plazhin Rana e Hedhun",
+      "tagline": "Apartamente me pamje nga deti në plazhin e qetë Rana e Hedhun",
       "cta_primary": "Shiko disponueshmërinë",
       "cta_secondary": "Na shkruani në WhatsApp"
+    },
+    "intro": {
+      "title": "Një cep i qetë i Adriatikut, me hapësirë për të ndaluar",
+      "body": "White Amfora ndodhet aty ku pishat takohen me rërën në Rana e Hedhun, një nga cepat më të qetë të bregut të Shëngjinit. Çdo apartament ka kuzhinën e vet, një dhomë ndenjeje për t'u çlodhur dhe një ballkon nga deti. Ejani për një javë, gatuani një drekë të gjatë dhe lërini pasditet të rrjedhin ngadalë.",
+      "cta": "Historia jonë"
+    },
+    "highlights": {
+      "title": "Çfarë e bën të lehtë një qëndrim këtu",
+      "items": [
+        { "label": "Disa hapa nga plazhi", "desc": "Rreth 700 m nga rëra dhe pishat e Rana e Hedhun." },
+        { "label": "Ballkone me pamje nga deti", "desc": "Zgjohuni me Adriatikun nga ballkoni juaj." },
+        { "label": "Kuzhina juaj", "desc": "Kuzhinë e plotë dhe dhomë ndenjeje në çdo apartament." },
+        { "label": "Parkim falas", "desc": "Parkoni në vend dhe harroni makinën gjithë javën." },
+        { "label": "Wi-Fi i shpejtë", "desc": "Lidhje e shpejtë dhe falas gjatë gjithë qëndrimit." },
+        { "label": "51 km nga aeroporti i Tiranës", "desc": "Një udhëtim i lehtë përgjatë bregut deri në Shëngjin." }
+      ]
+    },
+    "apartments": {
+      "title": "Apartamentet",
+      "intro": "Të gjera, të ndritshme dhe të bëra për më shumë se një natë.",
+      "card_title": "Apartament me dy dhoma gjumi",
+      "card_meta": "Dy dhoma gjumi · Dhomë ndenjeje · Ballkon nga deti",
+      "card_body": "Dy dhoma gjumi, një dhomë ndenjeje dhe një kuzhinë që hapet drejt një ballkoni mbi det. Hapësirë për një familje ose dy çifte që ndajnë bregun.",
+      "cta": "Shiko apartamentin",
+      "more_label": "Së shpejti edhe plane të tjera",
+      "more_body": "Po konfirmojmë gamën e plotë të apartamenteve. Na shkruani dhe do t'ju tregojmë çfarë është e lirë për datat tuaja."
+    },
+    "gallery": {
+      "title": "Përreth White Amfora",
+      "intro": "Plazhi, drita dhe mbrëmjet e gjata të Adriatikut.",
+      "cta": "Shiko galerinë"
+    },
+    "location": {
+      "title": "Ku do të jeni",
+      "intro": "Në bregdetin verior shqiptar te Rana e Hedhun, pak në jug të qytetit të Shëngjinit. Plazh i qetë përpara dhe udhëtime ditore afër jush.",
+      "items": [
+        { "label": "Plazhi Rana e Hedhun", "value": "≈ 700 m" },
+        { "label": "Aeroporti i Tiranës", "value": "≈ 51 km" },
+        { "label": "Kalaja Rozafa, Shkodër", "value": "≈ 44 km" },
+        { "label": "Liqeni i Shkodrës", "value": "≈ 46 km" }
+      ],
+      "cta": "Merr drejtimet"
+    },
+    "testimonials": {
+      "title": "Çfarë vërejnë të parët mysafirët",
+      "items": [
+        { "quote": "Pjesa më e bukur e plazhit të Shëngjinit është pikërisht përpara. Rërë e pastër, ujë i kthjellët dhe pisha për hije.", "attribution": "Mysafir vere" },
+        { "quote": "Apartament i gjerë me kuzhinë të vërtetë dhe ballkon drejt e nga deti. I qetë dhe i lehtë me familjen.", "attribution": "Qëndrim familjar" },
+        { "quote": "I qetë edhe në gusht. Del dhe je në rërë. Pikërisht ç'donim.", "attribution": "Mysafir që kthehet" }
+      ],
+      "note": "Përfaqësues i përshtypjeve të fundit të mysafirëve për zonën e Rana e Hedhun. Citime reale së shpejti."
+    },
+    "cta": {
+      "title": "Planifikoni qëndrimin tuaj në White Amfora",
+      "body": "Na tregoni datat tuaja dhe do t'ju kthehemi me disponueshmërinë dhe çmimin. Mënyra më e shpejtë për të na gjetur është WhatsApp.",
+      "primary": "Pyetni për datat",
+      "whatsapp": "Shkruani në WhatsApp",
+      "booking": "Rezervo në Booking.com"
+    },
+    "alt": {
+      "hero": "Pisha mbi një gji të qetë bruz në bregdetin shqiptar të Adriatikut",
+      "intro": "Dyer ballkoni të hapura me pamje nga deti dhe pishat bregdetare",
+      "apartment": "Brendësi apartamenti e ndritshme dhe e ajrosur me dritë deti",
+      "location": "Gji dhe plazh i Adriatikut parë nga kodra me pisha",
+      "gallery1": "Pamje nga deti përmes një ballkoni në muzg",
+      "gallery2": "Plazh shqiptar me rërë i rreshtuar me çadra",
+      "gallery3": "Lule landrash përgjatë shtegut bregdetar",
+      "gallery4": "Qytet bregdetar i zonës së Shëngjinit mbi ujë"
     }
   },
   "footer": {

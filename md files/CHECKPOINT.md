@@ -6,8 +6,8 @@
 > built, and what comes next. If you are an agent starting fresh: **read this entire
 > file first**, then read `white-amfora-master-prompt.md` for the full increment specs.
 
-**Last updated:** 2026-05-29 — end of Increment 2
-**Current phase:** Increment 2 complete → awaiting Increment 3 (Homepage)
+**Last updated:** 2026-05-29 — end of Increment 3
+**Current phase:** Increment 3 complete → awaiting Increment 4 (inner content pages)
 
 > **File location note:** the markdown docs (this file, `README.md`,
 > `white-amfora-master-prompt.md`) were moved by the client into the **`md files/`**
@@ -97,7 +97,7 @@ prefilled message and offers: Send via WhatsApp / Send via Email / Book on Booki
 | 0 | Standing rules + impeccable skill setup | ✅ **Done** |
 | 1 | Research (hotel + reference sites) & Astro scaffold + i18n + `site.ts` + base layout/tokens | ✅ **Done** |
 | 2 | Design system & shared components (header/nav, footer, primitives, WhatsApp bubble, motion) | ✅ **Done** |
-| 3 | Homepage (both languages) | ⬜ Not started |
+| 3 | Homepage (both languages) | ✅ **Done** |
 | 4 | Inner pages (Rooms, Services, Gallery+lightbox, About, optional Offers) | ⬜ Not started |
 | 5 | Contact page + inquiry flow (WhatsApp/email/Booking deep links) | ⬜ Not started |
 | 6 | i18n completion, SEO, performance & accessibility pass | ⬜ Not started |
@@ -192,9 +192,37 @@ instead so the page renders from locale files per the standing rule; easy to ext
 
 ---
 
+**Increment 3 — Homepage (added)**
+- Built the full bilingual homepage in `src/components/home/` (composed by `HomePage.astro`,
+  rendered by `src/pages/index.astro` + `src/pages/sq/index.astro`, both `overHero`):
+  `Hero` (full-bleed photo, scrim, orchestrated load reveal, scroll cue), `IntroTeaser`,
+  `Highlights` (6 CONFIRMED items only, line-icon row — pool/restaurant/breakfast/AC excluded),
+  `ApartmentsPreview` (confirmed Two-Bedroom + honest "more coming"), `GalleryTeaser`
+  (asymmetric mosaic → /gallery), `LocationTeaser` (distances + Get directions; map iframe slots
+  in once `MAP_EMBED_URL` set), `Testimonials` (representative themes, generic attribution, teal
+  band), `FinalCta` (Inquire / WhatsApp / Booking).
+- `HomePlaceholder.astro` removed. All copy is in locale files (`home.*`, incl. arrays via the
+  new `useList()` i18n helper).
+- **Imagery:** interim **Unsplash** stock in `src/assets/photos/` (hero-cove, balcony-doors,
+  balcony-curtains, apartment-interior, beach-umbrellas, bay-overlook, coast-oleander, town,
+  beach-cove2), visually vetted, optimized via Astro `<Picture>` (AVIF/WebP, no CLS).
+  ⚠️ **To replace with the client's real photos before launch** (Unsplash = interim credit).
+- Build green: `/`, `/sq/`, `/components` (162 image variants emitted). Both locales verified
+  to render all sections; couldn't screenshot (no Playwright browser bridge) — eyeball visually.
+- Decisions locked this increment: image approach = interim Unsplash; apartment preview =
+  confirmed one + "more coming".
+
 ## 9. Immediate next step
 
-**Increment 3 — Homepage** (both languages), using the Increment 2 design system. Sections
+**Increment 4 — inner content pages** (bilingual, reuse the design system): Rooms/Accommodation
+(each apartment: images, description, amenities, capacity, "Inquire about this room" CTA that
+prefills the room name), Services/Amenities (CONFIRMED only), Gallery (responsive masonry +
+accessible lightbox: keyboard + swipe, lazy), About (story, location, nearby attractions). Ask
+the client before adding an optional Offers/Packages page. All copy in locale files. These
+routes are currently linked from nav/home and 404 until built (/rooms, /gallery, /location→ may
+fold into About/Contact, /about).
+
+Original Increment 3 spec (now done) — Homepage sections
 (adapt from `docs/research.md` + `docs/design-notes.md`): hero (real media vibe), about teaser,
 amenities strip (CONFIRMED items only), apartment-types preview cards, gallery teaser, location
 teaser w/ map + distances, guest testimonials (generic attribution), final CTA band. Optimize

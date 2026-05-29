@@ -1,0 +1,59 @@
+---
+import { Picture } from 'astro:assets';
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import Button from '../ui/Button.astro';
+import balcony from '../../assets/photos/balcony-curtains.jpg';
+import umbrellas from '../../assets/photos/beach-umbrellas.jpg';
+import town from '../../assets/photos/town.jpg';
+import bay from '../../assets/photos/bay-overlook.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const tiles = [
+  { img: balcony, alt: t('home.alt.gallery1'), span: 'md:row-span-2' },
+  { img: umbrellas, alt: t('home.alt.gallery2'), span: 'md:col-span-2' },
+  { img: town, alt: t('home.alt.gallery4'), span: 'md:row-span-2' },
+  { img: bay, alt: t('home.alt.location'), span: 'md:col-span-2' },
+];
+---
+
+<section class="bg-canvas-deep py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+      <div class="max-w-2xl">
+        <h2 class="font-display text-display font-light text-ink">{t('home.gallery.title')}</h2>
+        <p class="mt-4 text-lg/relaxed text-ink-soft">{t('home.gallery.intro')}</p>
+      </div>
+      <Button variant="ghost" href={localizedPath(locale, '/gallery')} class="hidden sm:inline-flex">{t('home.gallery.cta')}</Button>
+    </div>
+
+    <div class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:auto-rows-[210px] md:gap-4" data-reveal>
+      {tiles.map((tile) => (
+        <a
+          href={localizedPath(locale, '/gallery')}
+          class={`group relative overflow-hidden rounded-2xl ${tile.span}`}
+        >
+          <Picture
+            src={tile.img}
+            alt={tile.alt}
+            widths={[400, 640, 900]}
+            sizes="(min-width:768px) 45vw, 90vw"
+            formats={['avif', 'webp']}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition duration-700 ease-[var(--ease-luxury)] motion-safe:group-hover:scale-105"
+          />
+          <span class="absolute inset-0 bg-ink/0 transition duration-500 group-hover:bg-ink/10"></span>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-8 sm:hidden">
+      <Button variant="outline" href={localizedPath(locale, '/gallery')} class="w-full">{t('home.gallery.cta')}</Button>
+    </div>
+  </div>
+</section>

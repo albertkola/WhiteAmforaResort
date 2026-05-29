@@ -1,0 +1,48 @@
+---
+import { type Locale, useTranslations, localizedPath } from '../../i18n';
+import Picture from '../ui/Picture.astro';
+import Button from '../ui/Button.astro';
+import interiorImg from '../../assets/photos/apartment-interior.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="bg-canvas py-20 md:py-28 lg:py-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="max-w-2xl" data-reveal>
+      <h2 class="font-display text-display font-light text-ink">{t('home.apartments.title')}</h2>
+      <p class="mt-4 text-lg/relaxed text-ink-soft">{t('home.apartments.intro')}</p>
+    </div>
+
+    <div class="mt-12 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+      <div data-reveal>
+        <Picture
+          src={interiorImg}
+          alt={t('home.alt.apartment')}
+          widths={[480, 768, 1024, 1280]}
+          sizes="(min-width:1024px) 48vw, 92vw"
+          aspect="4/3"
+          class="h-full rounded-[1.75rem] shadow-xl shadow-ink/10"
+        />
+      </div>
+
+      <div class="flex flex-col justify-center" data-reveal>
+        <h3 class="font-display text-title font-light text-ink">{t('home.apartments.card_title')}</h3>
+        <p class="mt-2 text-sm font-medium tracking-wide text-sea">{t('home.apartments.card_meta')}</p>
+        <p class="mt-5 max-w-prose text-ink-soft">{t('home.apartments.card_body')}</p>
+        <div class="mt-7">
+          <Button variant="primary" href={localizedPath(locale, '/rooms')}>{t('home.apartments.cta')}</Button>
+        </div>
+
+        <div class="mt-9 border-t border-ink/10 pt-6">
+          <p class="font-medium text-ink">{t('home.apartments.more_label')}</p>
+          <p class="mt-1 max-w-prose text-sm/relaxed text-ink-soft">{t('home.apartments.more_body')}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
