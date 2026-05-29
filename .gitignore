@@ -25,6 +25,10 @@ pnpm-debug.log*
 preview.log
 .lighthouseci/
 
+# internal working docs (not for the public repo) — README lives at the root
+md files/
+.impeccable/
+
 # os / editor
 .DS_Store
 Thumbs.db
