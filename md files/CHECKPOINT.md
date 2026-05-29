@@ -6,8 +6,8 @@
 > built, and what comes next. If you are an agent starting fresh: **read this entire
 > file first**, then read `white-amfora-master-prompt.md` for the full increment specs.
 
-**Last updated:** 2026-05-29 — end of Increment 3
-**Current phase:** Increment 3 complete → awaiting Increment 4 (inner content pages)
+**Last updated:** 2026-05-29 — end of Increment 4
+**Current phase:** Increment 4 complete → awaiting Increment 5 (Contact page + inquiry flow)
 
 > **File location note:** the markdown docs (this file, `README.md`,
 > `white-amfora-master-prompt.md`) were moved by the client into the **`md files/`**
@@ -98,7 +98,7 @@ prefilled message and offers: Send via WhatsApp / Send via Email / Book on Booki
 | 1 | Research (hotel + reference sites) & Astro scaffold + i18n + `site.ts` + base layout/tokens | ✅ **Done** |
 | 2 | Design system & shared components (header/nav, footer, primitives, WhatsApp bubble, motion) | ✅ **Done** |
 | 3 | Homepage (both languages) | ✅ **Done** |
-| 4 | Inner pages (Rooms, Services, Gallery+lightbox, About, optional Offers) | ⬜ Not started |
+| 4 | Inner pages (Rooms, Services, Gallery+lightbox, About, optional Offers) | ✅ **Done** (Offers not built — pending client OK) |
 | 5 | Contact page + inquiry flow (WhatsApp/email/Booking deep links) | ⬜ Not started |
 | 6 | i18n completion, SEO, performance & accessibility pass | ⬜ Not started |
 | 7 | Cloudflare Pages deployment + handoff docs | ⬜ Not started |
@@ -212,9 +212,45 @@ instead so the page renders from locale files per the standing rule; easy to ext
 - Decisions locked this increment: image approach = interim Unsplash; apartment preview =
   confirmed one + "more coming".
 
+**Increment 4 — inner content pages (added)**
+- New pages (bilingual EN + `/sq/`, all `overHero`), bodies in `src/components/pages/`:
+  - **/rooms** (`RoomsBody`): featured **Two-Bedroom Apartment** — image trio, capacity, description,
+    amenities checklist, + **"Inquire about this apartment"** → `/contact?room=<name>` and a WhatsApp
+    inquiry prefilled via `rooms.unit.wa`. "More layouts coming" block. (Capacity "sleeps up to 4" is an
+    estimate — TO CONFIRM.)
+  - **/services** (`ServicesBody`): 3 grouped lists, **confirmed offerings only**; honest "ask us about
+    the rest" CTA (no pool/restaurant/breakfast/AC claimed).
+  - **/gallery** (`GalleryBody`): CSS-columns masonry by category (coast / apartments) + accessible
+    **lightbox** using native `<dialog>` (focus trap + Esc built in), arrow-key + swipe nav, backdrop
+    close, focus returned to trigger; lazy thumbnails; full images pre-generated via `getImage()`.
+  - **/about** (`AboutBody`): story, location advantages, nearby attractions (Shëngjin, Rozafa, Lake
+    Skadar, Tirana), CTA.
+- New reusable `src/components/ui/PageHero.astro` (inner-page image hero with load reveal).
+- **Custom 404** (`src/pages/404.astro`, bilingual) — fixes a critique P1.
+- **Nav restructured:** Home · Apartments · Services · Gallery · About (+ Book/Inquire CTA → contact).
+  Dropped the dead `/location` item; footer quick-links add Services/About/Contact. This clears the
+  critique's P1 "dead nav links" (except `/contact`, which is Increment 5).
+- Copy: all in locale files (`rooms.*`, `services.*`, `gallery.*`, `about.*`, `notFound.*`).
+- Build green: **12 pages**; `detect.mjs` returns `[]` across home/rooms/services/gallery/about/404.
+
+**`/impeccable critique homepage` (run this increment):** score **31/40 (Good)**, detector clean,
+0 P0 / 2 P1. Snapshot at `.impeccable/critique/…__src-pages-index-astro.md`. P1s = dead nav links
+(now fixed) + placeholder contact targets (Increment 5 / client TODO). Open **P2s for a later
+`/impeccable audit` or polish pass:** low-contrast muted text — testimonials note `text-canvas/60`
+on teal and footer disclaimer `text-canvas/40` on ink (raise toward AA).
+
 ## 9. Immediate next step
 
-**Increment 4 — inner content pages** (bilingual, reuse the design system): Rooms/Accommodation
+**Increment 5 — Contact page + inquiry flow** (priority feature, fully client-side, no backend).
+Contact page: all methods from `site.ts` (tap-to-call, mailto, WhatsApp, Instagram, Booking, Google
+Map embed via `MAP_EMBED_URL`), address, directions, check-in/out. **Inquiry form:** check-in/out
+dates, guests (adults/children), room type (optional), name, message; validate (required dates,
+checkout > checkin, guests ≥ 1); NO server submit — compose a natural prefilled message and offer
+**Send via WhatsApp** / **Send via Email (mailto)** / **Book on Booking.com**, in the active language.
+**Consume the `?room=` query param** already emitted by the Rooms page to prefill room type. Make the
+form reachable from the header CTA and room cards. Test deep links on mobile + desktop.
+
+— Original Increment 4 spec (now done) — (bilingual, reuse the design system): Rooms/Accommodation
 (each apartment: images, description, amenities, capacity, "Inquire about this room" CTA that
 prefills the room name), Services/Amenities (CONFIRMED only), Gallery (responsive masonry +
 accessible lightbox: keyboard + swipe, lazy), About (story, location, nearby attractions). Ask

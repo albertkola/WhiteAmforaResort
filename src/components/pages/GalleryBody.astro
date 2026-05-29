@@ -1,0 +1,161 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import { type Locale, useTranslations, useList } from '../../i18n';
+import PageHero from '../ui/PageHero.astro';
+import Section from '../ui/Section.astro';
+
+import heroCove from '../../assets/photos/hero-cove.jpg';
+import beachUmbrellas from '../../assets/photos/beach-umbrellas.jpg';
+import bayOverlook from '../../assets/photos/bay-overlook.jpg';
+import coastOleander from '../../assets/photos/coast-oleander.jpg';
+import town from '../../assets/photos/town.jpg';
+import beachCove2 from '../../assets/photos/beach-cove2.jpg';
+import apartmentInterior from '../../assets/photos/apartment-interior.jpg';
+import balconyDoors from '../../assets/photos/balcony-doors.jpg';
+import balconyCurtains from '../../assets/photos/balcony-curtains.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const categories = useList(locale)<{ id: string; label: string }>('gallery.categories');
+
+const images = [
+  { img: heroCove, alt: t('home.alt.hero'), cat: 'coast' },
+  { img: beachUmbrellas, alt: t('home.alt.gallery2'), cat: 'coast' },
+  { img: bayOverlook, alt: t('home.alt.location'), cat: 'coast' },
+  { img: coastOleander, alt: t('home.alt.gallery3'), cat: 'coast' },
+  { img: town, alt: t('home.alt.gallery4'), cat: 'coast' },
+  { img: beachCove2, alt: t('rooms.alt.g3'), cat: 'coast' },
+  { img: apartmentInterior, alt: t('home.alt.apartment'), cat: 'apartments' },
+  { img: balconyDoors, alt: t('home.alt.intro'), cat: 'apartments' },
+  { img: balconyCurtains, alt: t('home.alt.gallery1'), cat: 'apartments' },
+];
+
+// Pre-generate optimized full-size variants for the lightbox.
+const full = await Promise.all(
+  images.map((it) => getImage({ src: it.img, width: 1600, format: 'webp' }))
+);
+const items = images.map((it, i) => ({ ...it, fullSrc: full[i].src }));
+---
+
+<PageHero
+  tag={t('gallery.hero.tag')}
+  title={t('gallery.hero.title')}
+  subtitle={t('gallery.hero.subtitle')}
+  image={beachUmbrellas}
+  alt={t('home.alt.gallery2')}
+/>
+
+<Section bg="canvas" width="wide">
+  {categories.map((cat) => (
+    <div class="mb-14 last:mb-0">
+      <h2 class="mb-8 font-display text-display font-light text-ink" data-reveal>{cat.label}</h2>
+      <div class="gap-4 [column-fill:_balance] columns-2 lg:columns-3">
+        {items.filter((it) => it.cat === cat.id).map((it) => (
+          <button
+            type="button"
+            class="gallery-item group mb-4 block w-full overflow-hidden rounded-2xl shadow-md shadow-ink/10 focus-visible:outline-2"
+            data-full={it.fullSrc}
+            data-alt={it.alt}
+            aria-label={t('a11y.openImage')}
+          >
+            <Picture
+              src={it.img}
+              alt={it.alt}
+              widths={[320, 480, 640, 800]}
+              sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 90vw"
+              formats={['avif', 'webp']}
+              loading="lazy"
+              decoding="async"
+              class="h-auto w-full object-cover transition duration-700 ease-[var(--ease-luxury)] motion-safe:group-hover:scale-[1.04]"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  ))}
+</Section>
+
+<!-- Lightbox (native dialog: built-in focus trap + Esc) -->
+<dialog
+  id="lightbox"
+  class="m-auto max-h-[100svh] w-full max-w-none bg-transparent p-0 backdrop:bg-ink/85 backdrop:backdrop-blur-sm"
+  aria-label={t('a11y.lightbox')}
+>
+  <div class="relative flex min-h-[100svh] w-full items-center justify-center p-4 sm:p-8">
+    <button id="lb-close" type="button" class="no-print absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-ink/40 text-canvas backdrop-blur transition hover:bg-ink/70 focus-visible:outline-2" aria-label={t('a11y.lightboxClose')}>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <button id="lb-prev" type="button" class="absolute left-3 top-1/2 z-10 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-ink/40 text-canvas backdrop-blur transition hover:bg-ink/70 focus-visible:outline-2 sm:left-6" aria-label={t('a11y.lightboxPrev')}>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button id="lb-next" type="button" class="absolute right-3 top-1/2 z-10 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-ink/40 text-canvas backdrop-blur transition hover:bg-ink/70 focus-visible:outline-2 sm:right-6" aria-label={t('a11y.lightboxNext')}>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+
+    <figure class="m-0 flex max-h-full flex-col items-center">
+      <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" class="max-h-[82svh] w-auto max-w-full rounded-lg object-contain shadow-2xl" />
+      <figcaption id="lb-cap" class="mt-3 text-center text-sm text-canvas/80"></figcaption>
+    </figure>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement | null;
+  const img = document.getElementById('lb-img') as HTMLImageElement | null;
+  const cap = document.getElementById('lb-cap');
+  const btnPrev = document.getElementById('lb-prev');
+  const btnNext = document.getElementById('lb-next');
+  const btnClose = document.getElementById('lb-close');
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('.gallery-item'));
+
+  if (dialog && img && triggers.length) {
+    let index = 0;
+
+    const show = (i: number) => {
+      index = (i + triggers.length) % triggers.length;
+      const el = triggers[index];
+      const full = el.getAttribute('data-full') ?? '';
+      const alt = el.getAttribute('data-alt') ?? '';
+      img.src = full;
+      img.alt = alt;
+      if (cap) cap.textContent = alt;
+    };
+
+    const open = (i: number) => {
+      show(i);
+      if (!dialog.open) dialog.showModal();
+    };
+    const close = () => dialog.open && dialog.close();
+
+    triggers.forEach((el, i) => el.addEventListener('click', () => open(i)));
+    btnPrev?.addEventListener('click', () => show(index - 1));
+    btnNext?.addEventListener('click', () => show(index + 1));
+    btnClose?.addEventListener('click', close);
+
+    // Arrow-key navigation (Esc handled natively by <dialog>)
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+    });
+
+    // Backdrop click closes (click lands on the dialog element itself)
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) close();
+    });
+
+    // Return focus to the trigger that opened the viewer
+    dialog.addEventListener('close', () => triggers[index]?.focus());
+
+    // Swipe navigation
+    let startX = 0;
+    dialog.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].screenX; }, { passive: true });
+    dialog.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - startX;
+      if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+</script>

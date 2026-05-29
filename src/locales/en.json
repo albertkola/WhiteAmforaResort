@@ -6,7 +6,9 @@
   "nav": {
     "home": "Home",
     "rooms": "Apartments",
+    "services": "Services",
     "gallery": "Gallery",
+    "about": "About",
     "location": "Location",
     "contact": "Contact",
     "book": "Book / Inquire"
@@ -88,6 +90,116 @@
       "gallery4": "Shëngjin-area coastal town above the water"
     }
   },
+  "rooms": {
+    "meta": {
+      "title": "Apartments — White Amfora, Shëngjin",
+      "description": "Sea-view, self-catering apartments at White Amfora on the Rana e Hedhun beach in Shëngjin, Albania."
+    },
+    "hero": {
+      "tag": "Apartments",
+      "title": "Room to settle in, steps from the sea",
+      "subtitle": "Self-catering apartments with sea-view balconies and full kitchens."
+    },
+    "intro": "Every apartment at White Amfora is made for an unhurried stay: space to cook, room to relax, and a balcony that faces the Adriatic. Here is what we can confirm today. Message us for the latest on layouts and availability.",
+    "unit": {
+      "name": "Two-Bedroom Apartment",
+      "capacity": "2 bedrooms · Living room · Sleeps up to 4",
+      "description": "Two separate bedrooms, an open living room, and a kitchen that flows onto a private balcony over the sea. It suits a family or two couples who want their own space and a slow morning coffee with a view.",
+      "amenities_title": "What's included",
+      "amenities": ["Sea-view balcony", "Full kitchen", "Separate living room", "Flat-screen TV", "Free parking", "Fast free Wi-Fi", "Non-smoking"],
+      "cta": "Inquire about this apartment",
+      "cta_whatsapp": "Ask on WhatsApp",
+      "wa": "Hello White Amfora! I would like to inquire about the Two-Bedroom Apartment."
+    },
+    "more": {
+      "title": "More layouts on the way",
+      "body": "We are confirming the full range of apartments and their capacities. Tell us your dates and how many guests, and we will reply with what fits.",
+      "cta": "Send an inquiry"
+    },
+    "alt": {
+      "hero": "Open balcony doors with a view of the sea and pines",
+      "g1": "Bright apartment living space with sea light",
+      "g2": "Balcony looking out to the Adriatic at dusk",
+      "g3": "Quiet cove and pines near the apartments"
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "Services & Amenities — White Amfora",
+      "description": "What's on offer at White Amfora: in-apartment comforts, on-site conveniences, and an easy arrival on the Shëngjin coast."
+    },
+    "hero": {
+      "tag": "Services",
+      "title": "Simple comforts, sorted",
+      "subtitle": "Everything you need for an easy self-catering stay by the sea."
+    },
+    "intro": "White Amfora is an apartment stay, so you get space and independence rather than a hotel front desk for everything. These are the things we can confirm today. If you need something specific, just ask.",
+    "groups": [
+      { "title": "In your apartment", "items": ["Full kitchen for self-catering", "Separate living room", "Sea-view balcony", "Flat-screen TV", "Non-smoking apartments"] },
+      { "title": "At the property", "items": ["Beachfront setting, about 700 m to the sand", "Free on-site parking", "Fast, free Wi-Fi throughout"] },
+      { "title": "Getting here", "items": ["About 51 km from Tirana International Airport", "Short drive to Shëngjin town and its restaurants", "Day trips to Rozafa Castle and Lake Skadar"] }
+    ],
+    "ask": {
+      "title": "Ask us about the rest",
+      "body": "Have a special request, like a longer stay or help planning a day trip? Message us and we will tell you what we can arrange for your dates.",
+      "cta": "Message us"
+    },
+    "alt": { "hero": "Oleander and the coastline along the Shëngjin shore" }
+  },
+  "gallery": {
+    "meta": {
+      "title": "Gallery — White Amfora, Shëngjin",
+      "description": "Photos of White Amfora and the Rana e Hedhun coast in Shëngjin, Albania."
+    },
+    "hero": {
+      "tag": "Gallery",
+      "title": "White Amfora in pictures",
+      "subtitle": "The beach, the light, and the apartments by the sea."
+    },
+    "categories": [
+      { "id": "coast", "label": "The coast & beach" },
+      { "id": "apartments", "label": "The apartments" }
+    ]
+  },
+  "about": {
+    "meta": {
+      "title": "About — White Amfora, Shëngjin",
+      "description": "The story of White Amfora and its setting on the quiet Rana e Hedhun beach near Shëngjin, Albania."
+    },
+    "hero": {
+      "tag": "About",
+      "title": "A small place on a quiet shore",
+      "subtitle": "Sea-view apartments where the pines meet the sand at Rana e Hedhun."
+    },
+    "story": {
+      "title": "Our place on the coast",
+      "body": "White Amfora is a small collection of sea-view apartments at Rana e Hedhun, one of the calmer stretches of the Shëngjin coast in northern Albania. We keep things simple: spacious apartments with their own kitchens, balconies that face the Adriatic, and the beach a few minutes from the door. It is the kind of stay where you cook when you want to, swim before breakfast, and watch the light change over the water in the evening."
+    },
+    "location": {
+      "title": "Where you'll be",
+      "body": "Rana e Hedhun sits just south of Shëngjin town, on the northern Adriatic. The beach here is known for clean sand, shallow clear water, and the pines that give shade through the afternoon. It stays calmer than the busier stretches further along the coast, which is exactly why people come back."
+    },
+    "nearby": {
+      "title": "Worth a day trip",
+      "items": [
+        { "name": "Shëngjin town & promenade", "desc": "Restaurants, cafés and the harbour, a short drive away." },
+        { "name": "Rozafa Castle, Shkodër", "desc": "A hilltop fortress with views over the Buna river, about 44 km." },
+        { "name": "Lake Skadar", "desc": "The largest lake in the Balkans, around 46 km." },
+        { "name": "Tirana", "desc": "The capital and its international airport, about 51 km down the coast." }
+      ]
+    },
+    "cta": {
+      "title": "Come and see it for yourself",
+      "body": "Tell us your dates and we will help you plan a stay.",
+      "primary": "Send an inquiry",
+      "whatsapp": "Message on WhatsApp"
+    },
+    "alt": {
+      "hero": "Pine-covered cove and turquoise water at Rana e Hedhun",
+      "location": "Adriatic bay and beach seen from the hillside",
+      "nearby": "Coastal town above the water near Shëngjin"
+    }
+  },
   "footer": {
     "tagline": "Sea-view, self-catering apartments on the Rana e Hedhun beach in Shëngjin, Albania.",
     "explore": "Explore",
@@ -110,9 +222,20 @@
     "whatsapp": "Chat with us on WhatsApp",
     "map": "View the location on Google Maps",
     "call": "Call White Amfora",
-    "email": "Email White Amfora"
+    "email": "Email White Amfora",
+    "openImage": "Open image in viewer",
+    "lightbox": "Image viewer",
+    "lightboxClose": "Close viewer",
+    "lightboxPrev": "Previous image",
+    "lightboxNext": "Next image"
   },
   "lang": {
     "switch": "Shqip"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "body": "The page you were looking for isn't here. Let's get you back to the coast.",
+    "cta": "Back to home"
   }
 }

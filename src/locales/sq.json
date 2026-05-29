@@ -6,7 +6,9 @@
   "nav": {
     "home": "Kreu",
     "rooms": "Apartamentet",
+    "services": "Shërbimet",
     "gallery": "Galeria",
+    "about": "Rreth nesh",
     "location": "Vendndodhja",
     "contact": "Kontakt",
     "book": "Rezervo / Pyet"
@@ -88,6 +90,116 @@
       "gallery4": "Qytet bregdetar i zonës së Shëngjinit mbi ujë"
     }
   },
+  "rooms": {
+    "meta": {
+      "title": "Apartamentet — White Amfora, Shëngjin",
+      "description": "Apartamente me pamje nga deti dhe me kuzhinë te White Amfora, në plazhin Rana e Hedhun, Shëngjin, Shqipëri."
+    },
+    "hero": {
+      "tag": "Apartamentet",
+      "title": "Hapësirë për t'u çlodhur, disa hapa nga deti",
+      "subtitle": "Apartamente me kuzhinë dhe ballkone me pamje nga deti."
+    },
+    "intro": "Çdo apartament te White Amfora është bërë për një qëndrim të qetë: hapësirë për të gatuar, vend për t'u çlodhur dhe një ballkon nga Adriatiku. Kjo është ajo që mund të konfirmojmë sot. Na shkruani për planet dhe disponueshmërinë më të fundit.",
+    "unit": {
+      "name": "Apartament me dy dhoma gjumi",
+      "capacity": "2 dhoma gjumi · Dhomë ndenjeje · Deri në 4 persona",
+      "description": "Dy dhoma gjumi të ndara, një dhomë ndenjeje e hapur dhe një kuzhinë që del në një ballkon privat mbi det. I përshtatshëm për një familje ose dy çifte që duan hapësirën e tyre dhe një kafe të ngadaltë në mëngjes me pamje.",
+      "amenities_title": "Çfarë përfshihet",
+      "amenities": ["Ballkon me pamje nga deti", "Kuzhinë e plotë", "Dhomë ndenjeje e ndarë", "Televizor me ekran të sheshtë", "Parkim falas", "Wi-Fi i shpejtë falas", "Pa duhan"],
+      "cta": "Pyet për këtë apartament",
+      "cta_whatsapp": "Pyet në WhatsApp",
+      "wa": "Përshëndetje White Amfora! Dua të pyes për Apartamentin me dy dhoma gjumi."
+    },
+    "more": {
+      "title": "Së shpejti edhe plane të tjera",
+      "body": "Po konfirmojmë gamën e plotë të apartamenteve dhe kapacitetet e tyre. Na tregoni datat dhe numrin e personave, dhe do t'ju përgjigjemi me atë që përshtatet.",
+      "cta": "Dërgo një pyetje"
+    },
+    "alt": {
+      "hero": "Dyer ballkoni të hapura me pamje nga deti dhe pishat",
+      "g1": "Hapësirë e ndritshme ndenjeje me dritë deti",
+      "g2": "Ballkon me pamje nga Adriatiku në muzg",
+      "g3": "Gji i qetë dhe pisha pranë apartamenteve"
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "Shërbimet & Lehtësitë — White Amfora",
+      "description": "Çfarë ofrohet te White Amfora: rehati brenda apartamentit, lehtësi në vend dhe një mbërritje e lehtë në bregun e Shëngjinit."
+    },
+    "hero": {
+      "tag": "Shërbimet",
+      "title": "Rehati të thjeshta, të zgjidhura",
+      "subtitle": "Gjithçka që ju duhet për një qëndrim të lehtë me kuzhinë pranë detit."
+    },
+    "intro": "White Amfora është një qëndrim me apartament, kështu që merrni hapësirë dhe pavarësi, jo një recepsion hoteli për çdo gjë. Këto janë gjërat që mund të konfirmojmë sot. Nëse ju duhet diçka e veçantë, thjesht na pyesni.",
+    "groups": [
+      { "title": "Në apartamentin tuaj", "items": ["Kuzhinë e plotë për të gatuar vetë", "Dhomë ndenjeje e ndarë", "Ballkon me pamje nga deti", "Televizor me ekran të sheshtë", "Apartamente pa duhan"] },
+      { "title": "Në pronë", "items": ["Vendndodhje buzë detit, rreth 700 m nga rëra", "Parkim falas në vend", "Wi-Fi i shpejtë dhe falas kudo"] },
+      { "title": "Si të vini", "items": ["Rreth 51 km nga Aeroporti Ndërkombëtar i Tiranës", "Udhëtim i shkurtër deri te qyteti dhe restorantet e Shëngjinit", "Udhëtime ditore te Kalaja Rozafa dhe Liqeni i Shkodrës"] }
+    ],
+    "ask": {
+      "title": "Na pyesni për pjesën tjetër",
+      "body": "Keni një kërkesë të veçantë, si një qëndrim më të gjatë ose ndihmë për të planifikuar një udhëtim ditor? Na shkruani dhe do t'ju tregojmë çfarë mund të rregullojmë për datat tuaja.",
+      "cta": "Na shkruani"
+    },
+    "alt": { "hero": "Landra dhe vija bregdetare përgjatë bregut të Shëngjinit" }
+  },
+  "gallery": {
+    "meta": {
+      "title": "Galeria — White Amfora, Shëngjin",
+      "description": "Foto të White Amfora dhe bregut të Rana e Hedhun në Shëngjin, Shqipëri."
+    },
+    "hero": {
+      "tag": "Galeria",
+      "title": "White Amfora në foto",
+      "subtitle": "Plazhi, drita dhe apartamentet pranë detit."
+    },
+    "categories": [
+      { "id": "coast", "label": "Bregu & plazhi" },
+      { "id": "apartments", "label": "Apartamentet" }
+    ]
+  },
+  "about": {
+    "meta": {
+      "title": "Rreth nesh — White Amfora, Shëngjin",
+      "description": "Historia e White Amfora dhe vendndodhja e saj në plazhin e qetë Rana e Hedhun pranë Shëngjinit, Shqipëri."
+    },
+    "hero": {
+      "tag": "Rreth nesh",
+      "title": "Një vend i vogël në një breg të qetë",
+      "subtitle": "Apartamente me pamje nga deti aty ku pishat takojnë rërën te Rana e Hedhun."
+    },
+    "story": {
+      "title": "Vendi ynë në breg",
+      "body": "White Amfora është një grup i vogël apartamentesh me pamje nga deti te Rana e Hedhun, një nga pjesët më të qeta të bregut të Shëngjinit në veri të Shqipërisë. I mbajmë gjërat të thjeshta: apartamente të gjera me kuzhinën e tyre, ballkone që shohin nga Adriatiku dhe plazhin disa minuta nga dera. Është lloji i qëndrimit ku gatuani kur doni, notoni para mëngjesit dhe shihni dritën të ndryshojë mbi ujë në mbrëmje."
+    },
+    "location": {
+      "title": "Ku do të jeni",
+      "body": "Rana e Hedhun ndodhet pak në jug të qytetit të Shëngjinit, në Adriatikun verior. Plazhi këtu njihet për rërën e pastër, ujin e cekët e të kthjellët dhe pishat që japin hije gjatë pasdites. Mbetet më i qetë se pjesët më të ngarkuara më tej përgjatë bregut, dhe pikërisht prandaj njerëzit kthehen."
+    },
+    "nearby": {
+      "title": "Ia vlen një udhëtim ditor",
+      "items": [
+        { "name": "Qyteti & shëtitorja e Shëngjinit", "desc": "Restorante, kafene dhe porti, një udhëtim i shkurtër larg." },
+        { "name": "Kalaja Rozafa, Shkodër", "desc": "Një kala mbi kodër me pamje nga lumi Buna, rreth 44 km." },
+        { "name": "Liqeni i Shkodrës", "desc": "Liqeni më i madh në Ballkan, rreth 46 km." },
+        { "name": "Tirana", "desc": "Kryeqyteti dhe aeroporti ndërkombëtar, rreth 51 km përgjatë bregut." }
+      ]
+    },
+    "cta": {
+      "title": "Ejani dhe shikojeni vetë",
+      "body": "Na tregoni datat tuaja dhe do t'ju ndihmojmë të planifikoni një qëndrim.",
+      "primary": "Dërgo një pyetje",
+      "whatsapp": "Shkruani në WhatsApp"
+    },
+    "alt": {
+      "hero": "Gji me pisha dhe ujë bruz te Rana e Hedhun",
+      "location": "Gji dhe plazh i Adriatikut parë nga kodra",
+      "nearby": "Qytet bregdetar mbi ujë pranë Shëngjinit"
+    }
+  },
   "footer": {
     "tagline": "Apartamente me pamje nga deti dhe me kuzhinë, në plazhin Rana e Hedhun, Shëngjin, Shqipëri.",
     "explore": "Eksploro",
@@ -110,9 +222,20 @@
     "whatsapp": "Bisedoni me ne në WhatsApp",
     "map": "Shikoni vendndodhjen në Google Maps",
     "call": "Telefononi White Amfora",
-    "email": "Dërgoni email White Amfora"
+    "email": "Dërgoni email White Amfora",
+    "openImage": "Hap imazhin në shikues",
+    "lightbox": "Shikues imazhesh",
+    "lightboxClose": "Mbyll shikuesin",
+    "lightboxPrev": "Imazhi i mëparshëm",
+    "lightboxNext": "Imazhi tjetër"
   },
   "lang": {
     "switch": "English"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Faqja nuk u gjet",
+    "body": "Faqja që kërkonit nuk është këtu. T'ju kthejmë te bregu.",
+    "cta": "Kthehu te kreu"
   }
 }

@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RoomsBody from '../components/pages/RoomsBody.astro';
+import { useTranslations } from '../i18n';
+const locale = 'en' as const;
+const t = useTranslations(locale);
+---
+<BaseLayout title={t('rooms.meta.title')} description={t('rooms.meta.description')} locale={locale} path="/rooms" overHero>
+  <RoomsBody locale={locale} />
+</BaseLayout>

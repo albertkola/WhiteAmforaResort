@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GalleryBody from '../../components/pages/GalleryBody.astro';
+import { useTranslations } from '../../i18n';
+const locale = 'sq' as const;
+const t = useTranslations(locale);
+---
+<BaseLayout title={t('gallery.meta.title')} description={t('gallery.meta.description')} locale={locale} path="/gallery" overHero>
+  <GalleryBody locale={locale} />
+</BaseLayout>

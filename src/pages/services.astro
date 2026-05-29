@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServicesBody from '../components/pages/ServicesBody.astro';
+import { useTranslations } from '../i18n';
+const locale = 'en' as const;
+const t = useTranslations(locale);
+---
+<BaseLayout title={t('services.meta.title')} description={t('services.meta.description')} locale={locale} path="/services" overHero>
+  <ServicesBody locale={locale} />
+</BaseLayout>

@@ -1,0 +1,80 @@
+---
+import { type Locale, useTranslations, useList, localizedPath } from '../../i18n';
+import { site, whatsappLink } from '../../config/site';
+import PageHero from '../ui/PageHero.astro';
+import Section from '../ui/Section.astro';
+import Picture from '../ui/Picture.astro';
+import Button from '../ui/Button.astro';
+
+import heroImg from '../../assets/photos/hero-cove.jpg';
+import locationImg from '../../assets/photos/bay-overlook.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const nearby = useList(locale)<{ name: string; desc: string }>('about.nearby.items');
+const waHref = whatsappLink(site.whatsappGreeting[locale]);
+---
+
+<PageHero
+  tag={t('about.hero.tag')}
+  title={t('about.hero.title')}
+  subtitle={t('about.hero.subtitle')}
+  image={heroImg}
+  alt={t('about.alt.hero')}
+/>
+
+<!-- Story -->
+<Section bg="canvas" width="narrow">
+  <div data-reveal>
+    <h2 class="font-display text-display font-light text-ink">{t('about.story.title')}</h2>
+    <p class="mt-6 text-lg/relaxed text-ink-soft">{t('about.story.body')}</p>
+  </div>
+</Section>
+
+<!-- Location -->
+<Section bg="deep" width="default" padding="md">
+  <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <div data-reveal>
+      <Picture
+        src={locationImg}
+        alt={t('about.alt.location')}
+        widths={[480, 768, 1024, 1280]}
+        sizes="(min-width:1024px) 48vw, 92vw"
+        aspect="4/3"
+        class="rounded-[1.75rem] shadow-xl shadow-ink/10"
+      />
+    </div>
+    <div data-reveal>
+      <h2 class="font-display text-display font-light text-ink">{t('about.location.title')}</h2>
+      <p class="mt-5 max-w-prose text-ink-soft">{t('about.location.body')}</p>
+    </div>
+  </div>
+</Section>
+
+<!-- Nearby -->
+<Section bg="canvas" width="default">
+  <h2 class="font-display text-display font-light text-ink" data-reveal>{t('about.nearby.title')}</h2>
+  <ul class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2" data-reveal-group>
+    {nearby.map((n) => (
+      <li class="border-t border-ink/10 pt-5" data-reveal>
+        <h3 class="font-display text-title font-light text-ink">{n.name}</h3>
+        <p class="mt-2 text-ink-soft">{n.desc}</p>
+      </li>
+    ))}
+  </ul>
+</Section>
+
+<!-- CTA -->
+<Section bg="sea" width="narrow" padding="md">
+  <div class="text-center text-canvas" data-reveal>
+    <h2 class="font-display text-display font-light">{t('about.cta.title')}</h2>
+    <p class="mx-auto mt-4 max-w-prose text-canvas/85">{t('about.cta.body')}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <Button variant="primary" href={localizedPath(locale, '/contact')}>{t('about.cta.primary')}</Button>
+      <Button variant="light" href={waHref} target="_blank" rel="noopener noreferrer">{t('about.cta.whatsapp')}</Button>
+    </div>
+  </div>
+</Section>

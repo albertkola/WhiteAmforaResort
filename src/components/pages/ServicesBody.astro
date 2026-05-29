@@ -1,0 +1,52 @@
+---
+import { type Locale, useTranslations, useList, localizedPath } from '../../i18n';
+import PageHero from '../ui/PageHero.astro';
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+import heroImg from '../../assets/photos/coast-oleander.jpg';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const groups = useList(locale)<{ title: string; items: string[] }>('services.groups');
+---
+
+<PageHero
+  tag={t('services.hero.tag')}
+  title={t('services.hero.title')}
+  subtitle={t('services.hero.subtitle')}
+  image={heroImg}
+  alt={t('services.alt.hero')}
+/>
+
+<Section bg="canvas" width="default">
+  <p class="max-w-prose text-lg/relaxed text-ink-soft" data-reveal>{t('services.intro')}</p>
+
+  <div class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8" data-reveal-group>
+    {groups.map((group) => (
+      <div data-reveal>
+        <h2 class="font-display text-title font-light text-ink">{group.title}</h2>
+        <ul class="mt-5 space-y-3">
+          {group.items.map((item) => (
+            <li class="flex gap-3 border-t border-ink/10 pt-3 text-ink-soft">
+              <svg class="mt-1 shrink-0 text-clay" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</Section>
+
+<Section bg="sand" width="narrow" padding="md">
+  <div class="text-center" data-reveal>
+    <h2 class="font-display text-display font-light text-ink">{t('services.ask.title')}</h2>
+    <p class="mx-auto mt-4 max-w-prose text-ink-soft">{t('services.ask.body')}</p>
+    <div class="mt-8">
+      <Button variant="primary" href={localizedPath(locale, '/contact')}>{t('services.ask.cta')}</Button>
+    </div>
+  </div>
+</Section>

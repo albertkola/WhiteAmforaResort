@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { useTranslations } from '../i18n';
+
+const en = useTranslations('en');
+const sq = useTranslations('sq');
+---
+
+<BaseLayout title="404 — White Amfora" description="Page not found." locale="en" path="/">
+  <section class="flex min-h-[70svh] items-center justify-center bg-canvas px-6 py-24 text-center">
+    <div>
+      <p class="font-display text-hero font-light leading-none text-clay">404</p>
+      <h1 class="mt-4 font-display text-display font-light text-ink">{en('notFound.title')}</h1>
+      <p class="mx-auto mt-4 max-w-prose text-ink-soft">{en('notFound.body')}</p>
+      <p class="mx-auto mt-1 max-w-prose text-sm text-ink-soft/80">{sq('notFound.body')}</p>
+      <div class="mt-9 flex flex-wrap justify-center gap-4">
+        <Button variant="primary" href="/">{en('notFound.cta')}</Button>
+        <Button variant="outline" href="/sq/">{sq('notFound.cta')}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
