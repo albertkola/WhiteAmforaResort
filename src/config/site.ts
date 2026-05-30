@@ -46,13 +46,13 @@ export const site = {
 
   /** Distances (confirmed from listing; verify with client) */
   distances: {
-    beachMeters: 700, // to Rana e Hedhun beach — TODO: confirm "beachfront" vs 700 m
-    airportKm: 51, // to Tirana International Airport (Mother Teresa)
+    beachMeters: 500, // to Rana e Hedhun beach — TODO: confirm "beachfront" vs 700 m
+    airportKm: 50, // to Tirana International Airport (Mother Teresa)
   },
 
   /** Stay info — TODO: confirm with client */
-  checkIn: '14:00', // TODO: confirm with client
-  checkOut: '11:00', // TODO: confirm with client
+  checkIn: '12:00', // TODO: confirm with client
+  checkOut: '10:00', // TODO: confirm with client
 
   /** Default WhatsApp greeting (used by the bubble; the inquiry form builds its own) */
   whatsappGreeting: {
