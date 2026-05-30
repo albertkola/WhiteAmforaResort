@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { site } from '../config/site';
-import { type Locale, defaultLocale, localizedPath } from '../i18n';
+import { type Locale, defaultLocale, localizedPath, withBase } from '../i18n';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import WhatsAppBubble from '../components/layout/WhatsAppBubble.astro';
@@ -33,7 +33,7 @@ const {
 const canonical = new URL(localizedPath(locale, path), Astro.site).toString();
 const enHref = new URL(localizedPath('en', path), Astro.site).toString();
 const sqHref = new URL(localizedPath('sq', path), Astro.site).toString();
-const ogImageUrl = new URL(ogImage, Astro.site).toString();
+const ogImageUrl = new URL(withBase(ogImage), Astro.site).toString();
 const ogLocale = locale === 'sq' ? 'sq_AL' : 'en_US';
 const ogLocaleAlt = locale === 'sq' ? 'en_US' : 'sq_AL';
 
@@ -75,13 +75,17 @@ const hotelSchema = {
     <!-- Language persistence: honor a previously chosen locale on the EN home,
          otherwise remember the locale of the page being viewed. Runs before paint
          so there is no visible flash; crawlers (no localStorage) always see EN. -->
-    <script is:inline define:vars={{ pageLocale: locale }}>
+    <script is:inline define:vars={{ pageLocale: locale, base: withBase('/') }}>
       try {
         const KEY = 'waLocale';
         const saved = localStorage.getItem(KEY);
-        const onEnHome = location.pathname === '/' || location.pathname === '/index.html';
+        const home = base; // e.g. "/WhiteAmforaResort/"
+        const onEnHome =
+          location.pathname === home ||
+          location.pathname === home.replace(/\/$/, '') ||
+          location.pathname === home + 'index.html';
         if (saved === 'sq' && onEnHome) {
-          location.replace('/sq/');
+          location.replace(home + 'sq/');
         } else {
           localStorage.setItem(KEY, pageLocale);
         }
@@ -99,8 +103,8 @@ const hotelSchema = {
     <link rel="alternate" hreflang="x-default" href={enHref} />
 
     <!-- icons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <meta name="theme-color" content="#2e241d" />
 
     <!-- Open Graph -->

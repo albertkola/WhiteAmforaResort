@@ -4,8 +4,11 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: confirm final production domain with client (used for SEO/sitemap)
-  site: 'https://www.whiteamfora.com',
+  // Deployed to GitHub Pages as a project site (served under /WhiteAmforaResort/).
+  // TODO: when the custom domain whiteamfora.com is live, switch site back to it
+  // and remove `base` (also drop public/CNAME handling and base-aware link helpers).
+  site: 'https://albertkola.github.io',
+  base: '/WhiteAmforaResort',
   trailingSlash: 'ignore',
   i18n: {
     defaultLocale: 'en',

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/ui/Button.astro';
-import { useTranslations } from '../i18n';
+import { useTranslations, localizedPath } from '../i18n';
 
 const en = useTranslations('en');
 const sq = useTranslations('sq');
@@ -15,8 +15,8 @@ const sq = useTranslations('sq');
       <p class="mx-auto mt-4 max-w-prose text-ink-soft">{en('notFound.body')}</p>
       <p class="mx-auto mt-1 max-w-prose text-sm text-ink-soft/80">{sq('notFound.body')}</p>
       <div class="mt-9 flex flex-wrap justify-center gap-4">
-        <Button variant="primary" href="/">{en('notFound.cta')}</Button>
-        <Button variant="outline" href="/sq/">{sq('notFound.cta')}</Button>
+        <Button variant="primary" href={localizedPath('en', '/')}>{en('notFound.cta')}</Button>
+        <Button variant="outline" href={localizedPath('sq', '/')}>{sq('notFound.cta')}</Button>
       </div>
     </div>
   </section>

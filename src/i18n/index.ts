@@ -61,11 +61,26 @@ export function useList(locale: Locale) {
   };
 }
 
-/** Build a locale-aware path. EN omits the prefix; SQ gets "/sq". */
+/**
+ * Configured deploy base (e.g. "/WhiteAmforaResort"), normalized without a
+ * trailing slash. Empty string when the site is served from the domain root.
+ * GitHub Pages project sites live under a subpath, so every root-relative URL
+ * we build by hand must be prefixed with this.
+ */
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
+/** Prefix a root-relative path (e.g. "/favicon.svg") with the deploy base. */
+export function withBase(path = '/'): string {
+  const clean = `/${String(path).replace(/^\/+/, '')}`;
+  return clean === '/' ? `${BASE}/` : `${BASE}${clean}`;
+}
+
+/** Build a locale-aware, base-aware path. EN omits the prefix; SQ gets "/sq". */
 export function localizedPath(locale: Locale, path = '/'): string {
   const clean = `/${path.replace(/^\/+/, '')}`.replace(/\/+$/, '') || '/';
-  if (locale === defaultLocale) return clean;
-  return clean === '/' ? `/${locale}` : `/${locale}${clean}`;
+  const localized =
+    locale === defaultLocale ? clean : clean === '/' ? `/${locale}` : `/${locale}${clean}`;
+  return withBase(localized);
 }
 
 /** Given the current path + locale, return the equivalent path in the other locale. */

@@ -5,6 +5,7 @@ import SectionHeading from '../components/ui/SectionHeading.astro';
 import Button from '../components/ui/Button.astro';
 import Card from '../components/ui/Card.astro';
 import Picture from '../components/ui/Picture.astro';
+import { localizedPath } from '../i18n';
 
 import seaBalcony from '../assets/placeholders/sea-balcony.jpg';
 import apartment from '../assets/placeholders/apartment.jpg';
@@ -49,7 +50,7 @@ const cards = [
       </p>
       <div class="mt-9 flex flex-wrap gap-4">
         <Button variant="primary" size="lg" href="#primitives">View primitives</Button>
-        <Button variant="light" size="lg" href="/">Back to home</Button>
+        <Button variant="light" size="lg" href={localizedPath('en', '/')}>Back to home</Button>
       </div>
     </div>
   </section>
